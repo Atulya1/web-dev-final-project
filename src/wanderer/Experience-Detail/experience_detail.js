@@ -55,7 +55,7 @@ const DetailExperience = (
                     </Box>
                     </div>
                     <div className="fw-bold">{detailExperience.travel_place}&nbsp; - &nbsp;<text className="Heading text-black">{detailExperience.travel_date}</text> </div>
-                    <img  height={400} width={750} alt={"avatarIcon"} src={`../images/${detailExperience.image}`}/>
+                    <img  height={400} width={750} alt={"avatarIcon"} src={`../Images/${detailExperience.image}`}/>
                     <div>
                         <text className="Heading text-black fw-bold">{detailExperience.name}</text>
                         <br/>

@@ -18,6 +18,7 @@ import NavBarTop from "./NavBarTop";
 import HomeComponentProject from "./HomeComponent/HomeComponentProject";
 import ProfileComponent from "./Profile";
 import EditProfileComponent from "./EditProfile";
+import DetailExpOfUser from "./MyExperiences/my_experiences";
 
 const store = configureStore({
                                  reducer: {profile: profileReducer, experience: experienceReducer, experiencedetail: experienceDetail,
@@ -43,6 +44,7 @@ function Wanderer() {
                         <Route path="edit-profile" element={<EditProfileComponent/>}/>
                         <Route path="experiencedetail/:id" element={<DetailExp/>}/>
                         <Route path="cities" element={<CitySuggest/>}/>
+                        <Route path="wanderer/experience/" element={<DetailExpOfUser/>}/>
                     </Routes>
                 </div>
                 <div className="col-3">
