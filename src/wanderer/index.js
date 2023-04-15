@@ -28,8 +28,12 @@ const store = configureStore({
 function Wanderer() {
     return (
         <Provider store={store}>
-            <NavBarTop/>
-            <div className="row mt-2">
+            <div style={{"position": "fixed",
+                "top": 0,
+                "width":"100%",
+                "z-index": "20"}}><NavBarTop/></div>
+
+            <div className="row" style={{"margin-top":"80px"}}>
                 <div className="col-2">
                     <NavigationSidebar active="explore"/>
                 </div>
@@ -47,7 +51,9 @@ function Wanderer() {
                         <Route path="wanderer/experience/" element={<DetailExpOfUser/>}/>
                     </Routes>
                 </div>
-                <div className="col-3">
+                <div className="col-3" style={{"height": "750px",
+                    "overflow-x": "auto",
+                    "overflow-y": "auto"}}>
                     <HomeExp/>
                 </div>
             </div>
