@@ -1,0 +1,20 @@
+[
+  {
+    "_id": 123,
+    "profileID": 234,
+    "travel_place": "Boston",
+    "image": "Boston2.jpeg"
+  },
+  {
+    "_id": 234,
+    "profileID": 345,
+    "travel_place": "Dallas",
+    "image": "dallas.webp"
+  },
+  {
+    "_id": 234,
+    "profileID": 345,
+    "travel_place": "NorthCarolina",
+    "image": "northcarolina.jpeg"
+  }
+]
