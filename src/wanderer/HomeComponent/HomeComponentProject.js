@@ -1,6 +1,7 @@
 import React from "react";
 import "./index.css";
 import "bootstrap/dist/css/bootstrap.min.css";
+import CitySuggest from "../CitySuggestions";
 const HomeComponentProject = (
     {
         HomeProjectImage = {
@@ -31,13 +32,13 @@ const HomeComponentProject = (
                     </div>
                     <div className="carousel-inner">
                         <div className="carousel-item active">
-                            <img src="./Images/Boston2.jpeg" alt="boston1" className="w-100"/>
+                            <img src="../../Images/Boston2.jpeg" alt="boston1" className="w-100"/>
                         </div>
                         <div className="carousel-item">
-                            <img src="./Images/Boston1.webp" alt="boston2" className="d-block w-100"/>
+                            <img src="../../Images/Boston1.webp" alt="boston2" className="d-block w-100"/>
                         </div>
                         <div className="carousel-item">
-                            <img src="./Images/Boston2.jpeg" alt="boston3" className="d-block w-100"/>
+                            <img src="../../Images/Boston2.jpeg" alt="boston3" className="d-block w-100"/>
                         </div>
                         <h1 className="position-absolute wd-nudge-up text-white">
                             Boston</h1>
@@ -50,7 +51,7 @@ const HomeComponentProject = (
                     </button>
                 </div>
             </div>
-
+            <CitySuggest/>
             {/*<PostSummaryList/>*/}
         </>
     );

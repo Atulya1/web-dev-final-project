@@ -11,9 +11,9 @@ function EditProfileComponent() {
 
     const [profileData, setProfileData] = useState(profile);
     const dispatch = useDispatch();
+    console.log(profileData);
 
     const saveProfile = () => {
-        console.log(profileData);
         dispatch(updateProfile(profileData));
     }
 
@@ -74,12 +74,12 @@ function EditProfileComponent() {
     return (
         <div style={{border: "1px solid lightgrey"}}>
             <li className="list-group-item list-group-item-action">
-                <Link to="/tuiter/profile">
+                <Link to={"/profile/"+profileData.firstName}>
                     <i className="fas fa-xmark wd-black-color" style={{paddingLeft:"20px", paddingRight:"20px", position:"relative", top: "7px"}}></i>
                 </Link>
                 <span style={{paddingLeft:"10px", paddingTop: "10px",fontWeight:"bold",fontSize:"24px",fontFamily:"arial", position:"relative", top: "10px"}}>Edit Profile</span>
 
-                <Link to="/tuiter/profile">
+                <Link to={"/profile/"+profileData._id}>
                     <button type="button"
                             onClick={saveProfile}
                             className="btn btn-dark btn-block rounded-pill mt-2"
