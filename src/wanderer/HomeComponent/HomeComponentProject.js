@@ -3,23 +3,28 @@ import "./index.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import CitySuggest from "../CitySuggestions";
 import "./index.css";
+import UserReaction from "../UserReactions/user-reaction"
 import PlacesAutocomplete, {
     geocodeByAddress,
     getLatLng
 } from "react-places-autocomplete";
 import axios from "axios";
 const HomeComponentProject = () => {
+// useEffect(() => {
+//     getData(placeId);
+// }, []);
     const [address, setAddress] = React.useState("");
     const [photos, setPhotos] = React.useState(null);
     const [placeId, setPlaceId] = React.useState("");
     const [coordinates, setCoordinates] = React.useState({
-        lat: null,
-        lng: null
-    });
+                                                             lat: null,
+                                                             lng: null
+                                                         });
 
     async function getData(placeId) {
         try {
-            const response = await axios.get(`http://localhost:4000/api/tuits/getPhotos/${placeId}`);
+            const response = await axios.get(
+                `http://localhost:4000/api/tuits/getPhotos/${placeId}`);
             const json = await response
             console.log(json);
             setPhotos(json.data);
@@ -27,11 +32,6 @@ const HomeComponentProject = () => {
             console.error(error);
         }
     }
-
-// useEffect(() => {
-//     getData(placeId);
-// }, []);
-
     const handleSelect = async value => {
         const results = await geocodeByAddress(value);
         const latLng = await getLatLng(results[0]);
@@ -110,6 +110,7 @@ const HomeComponentProject = () => {
                     </button>
                 </div>
             </div>
+            <UserReaction/>
             <CitySuggest/>
             {/*<PostSummaryList/>*/}
         </>

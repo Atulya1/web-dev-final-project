@@ -87,8 +87,8 @@
     "itinerary": "Wake up and go early"
   },
   {
-    "_id": 567,
-    "profileID": 123,
+    "_id": 789,
+    "profileID": 4567,
     "name": "Atul",
     "travel_place": "Philadelphia",
     "travel_date": "4/28/2023",
@@ -97,6 +97,35 @@
       "heading": "Another family found away from home",
       "description": "Semester is over. I am going to North Carolina to meet my family. When I came to the US, I left my family in India. Though I was sad leaving them behind, I didn't know that I would find another family away from home. I had to travel to North Carolina this time all the way from Boston. It was forth the effort. I got so much love and care in North Carolina.",
       "rating": 4
+    },
+    "places_visited": [
+      "Dallas",
+      "Boston",
+      "Pakistan"
+    ],
+    "date_of_review": "timestamp",
+    "image": [
+      "cryptography.jpg"
+    ],
+    "cost_of_trip": "5000",
+    "places_food_shop": [
+      "Amorino",
+      "JP Licks",
+      "Olive Garden"
+    ],
+    "itinerary": "Wake up and go early"
+  },
+  {
+    "_id": 34564,
+    "profileID": 4774,
+    "name": "Chetana",
+    "travel_place": "Dallas",
+    "userAvtar": "chetana.png",
+    "travel_date": "3/08/2023",
+    "experience": {
+      "heading": "Found family away from home",
+      "description": "When I came to the US, I left my family in India. Though I was sad leaving them behind, I didn't know that I would find a family away from home. I had to travel to Dallas all the way from Boston though. It was forth the effort. I got so much love and care in Dallas.",
+      "rating": 5
     },
     "places_visited": [
       "Dallas",

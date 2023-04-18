@@ -19,6 +19,8 @@ import HomeComponentProject from "./HomeComponent/HomeComponentProject";
 import ProfileComponent from "./Profile";
 import EditProfileComponent from "./EditProfile";
 import DetailExpOfUser from "./MyExperiences/my_experiences";
+import LoginComponent from "./Login/index.js";
+import RegisterComponent from "./Register/index.js";
 
 const store = configureStore({
                                  reducer: {profile: profileReducer, experience: experienceReducer, experiencedetail: experienceDetail,
@@ -41,17 +43,19 @@ function Wanderer() {
                      style={{"position": "relative"}}>
                     <Routes>
                         <Route path="/" element={<HomeComponentProject/>}/>
-                        <Route path="/wanderer" element={<HomeComponentProject/>}/>
-                        <Route path="explore/:id" element={<GlobalCities/>}/>
-                        <Route path="profile" element={<ProfileComponent/>}/>
-                        <Route path="profile/:id" element={<ProfileComponent/>}/>
-                        <Route path="edit-profile" element={<EditProfileComponent/>}/>
-                        <Route path="experiencedetail/:id" element={<DetailExp/>}/>
-                        <Route path="cities" element={<CitySuggest/>}/>
-                        <Route path="wanderer/experience/" element={<DetailExpOfUser/>}/>
+                        {/*//<Route path="wanderer" element={<HomeComponentProject/>}/>*/}
+                        <Route path="/explore/:id" element={<GlobalCities/>}/>
+                        <Route path="/profile" element={<ProfileComponent/>}/>
+                        <Route path="/profile/:id" element={<ProfileComponent/>}/>
+                        <Route path="/edit-profile" element={<EditProfileComponent/>}/>
+                        <Route path="/experiencedetail/:id" element={<DetailExp/>}/>
+                        <Route path="/cities" element={<CitySuggest/>}/>
+                        <Route path="/experience" element={<DetailExpOfUser/>}/>
+                        <Route path="/login" element={<LoginComponent/>}/>
+                        <Route path="/register" element={<RegisterComponent/>}/>
                     </Routes>
                 </div>
-                <div className="col-3" style={{"height": "750px",
+                <div className="col-3" style={{"height": "780px",
                     "overflow-x": "auto",
                     "overflow-y": "auto"}}>
                     <HomeExp/>

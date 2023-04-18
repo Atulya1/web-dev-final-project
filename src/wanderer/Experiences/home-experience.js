@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import Box from '@mui/material/Box';
 import Rating from '@mui/material/Rating';
@@ -25,17 +25,18 @@ const HomeExperience = (
             ],
             date_of_review: "timestamp",
             image: [
-
             ]
-        }
+        },
+
     }
 ) => {
+    const [reviewstring, setreviewstring] = useState(homeExperience.experience.description);
 
     return(
         <li className="list-group-item">
             <div className="row">
                 <div className="col-2">
-                    <img className="rounded-circle" height={44} width={48} alt={"avatarIcon"} src={`./Images/${homeExperience.userAvtar}`}/>
+                    <img className="rounded-circle" height={44} width={48} alt={"avatarIcon"} src={`../Images/${homeExperience.userAvtar}`}/>
                 </div>
                 <div className="col-10">
                     <Link to={"/profile/" + homeExperience.profileID} style={{textDecoration:'none'}}><div className="fw-bold" style={{color:"black"}}>{homeExperience.name} </div></Link>
@@ -55,7 +56,11 @@ const HomeExperience = (
                     <div>
                        <Link to={"/experiencedetail/"+homeExperience._id} style={{textDecoration:'none'}}><text className="Heading text-black fw-bold">{homeExperience.experience.heading}</text></Link>
                         <br/>
-                        <text className="Heading text-black">{homeExperience.experience.description}</text>
+                        <text className="Heading text-black" style={{"text-overflow": "ellipsis",
+                            "white-space": "nowrap",
+                            "display": "block",
+                            "overflow": "hidden",
+                            "width": "15em"}}>{reviewstring}</text>
                     </div>
 
                 </div>
