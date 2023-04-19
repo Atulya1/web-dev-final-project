@@ -99,8 +99,6 @@ const HomeComponentProject = () => {
                                 </div>
                             )}
                         </PlacesAutocomplete>
-                        {/*<h1 className="position-absolute wd-nudge-up text-white">*/}
-                        {/*    Boston</h1>*/}
                     </div>
                     <button className="carousel-control-prev" type="button" data-bs-target="#demo2" data-bs-slide="prev" >
                         <span className="carousel-control-prev-icon"></span>
