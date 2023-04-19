@@ -56,7 +56,7 @@ function Wanderer() {
                         <Route path="/experience" element={<DetailExpOfUser/>}/>
                         <Route path="/login" element={<LoginComponent/>}/>
                         <Route path="/register" element={<RegisterComponent/>}/>
-                        <Route path="/reviews" element={<UserExperienceComponent/>}/>
+                        <Route path="/wanderer/reviews" element={<UserExperienceComponent/>}/>
                         <Route path="/wanderer/upcomingTrips" element={<UpcomingTripsComponent/>}/>
                     </Routes>
                 </div>
