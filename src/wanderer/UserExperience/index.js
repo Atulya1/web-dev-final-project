@@ -12,7 +12,7 @@ import PlacesAutocomplete, {
     getLatLng
 } from "react-places-autocomplete";
 import Rating from "@mui/material/Rating";
-import {registerUser} from "../../services/wanderer-service";
+import { registerUserExperience} from "../../services/wanderer-service";
 const initialValue = {
     user_id: '',
     place_id: '',
@@ -54,7 +54,7 @@ const UserExperienceComponent = () => {
         userExperience.place_id = placeId;
         userExperience.travel_place = formatedAddress;
         console.log(userExperience);
-        const response = await registerUser(userExperience);
+        const response = await registerUserExperience(userExperience);
         console.log(response.data);
         if(response.data.status == 200) {
             window.alert("experience saved");
