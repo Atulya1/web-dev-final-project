@@ -21,6 +21,7 @@ import EditProfileComponent from "./EditProfile";
 import DetailExpOfUser from "./MyExperiences/my_experiences";
 import LoginComponent from "./Login/index.js";
 import RegisterComponent from "./Register/index.js";
+import UserExperienceComponent from "./UserExperience/index.js";
 
 const store = configureStore({
                                  reducer: {profile: profileReducer, experience: experienceReducer, experiencedetail: experienceDetail,
@@ -53,6 +54,7 @@ function Wanderer() {
                         <Route path="/experience" element={<DetailExpOfUser/>}/>
                         <Route path="/login" element={<LoginComponent/>}/>
                         <Route path="/register" element={<RegisterComponent/>}/>
+                        <Route path="/reviews" element={<UserExperienceComponent/>}/>
                     </Routes>
                 </div>
                 <div className="col-3" style={{"height": "780px",
