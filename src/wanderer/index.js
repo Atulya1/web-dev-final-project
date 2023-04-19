@@ -23,6 +23,7 @@ import LoginComponent from "./Login/index.js";
 import RegisterComponent from "./Register/index.js";
 import UpcomingTripsComponent from "./AddUpcomingTrip";
 
+
 const store = configureStore({
                                  reducer: {profile: profileReducer, experience: experienceReducer, experiencedetail: experienceDetail,
                                      Cities: HomeProjectReducer, CitySuggestions: CitySuggestionReducer}

@@ -4,6 +4,7 @@ const API_BASE = "http://localhost:4000";
 const TUITS_API = `${API_BASE}/api/user`;
 const TRIPS_API = `${API_BASE}/api/trip`;
 
+
 export const loginUser = async (data) => {
     data = data || '';
     return await axios.post(`${TUITS_API}/checkLoginCredentials`, data);

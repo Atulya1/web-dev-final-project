@@ -46,6 +46,7 @@ const RegisterComponent = () => {
         // else {
         //     setMessage('Sorry, this username is not Available.');
         // }
+
     }
 
     return(
@@ -55,6 +56,7 @@ const RegisterComponent = () => {
                     <div className="card-group mb-0">
                         <div className="card p-4">
                             <div className="card-body">
+
                                 <h1>Register </h1>
                                 <p className="text-muted">Register your account</p>
                                 <div className="input-group mb-3">
@@ -64,6 +66,7 @@ const RegisterComponent = () => {
                                 <div className="input-group mb-4">
                                     <span className="input-group-addon"><i className="fa fa-lock"></i></span>
                                     <input type="text" className="form-control" placeholder="Last Name" onChange={(e) => onValueChange(e)} name='lastName' value={lastName} id="lastName"/>
+
                                 </div>
                                 <div className="input-group mb-3">
                                     <span className="input-group-addon"><i className="fa fa-user"></i></span>
@@ -88,6 +91,7 @@ const RegisterComponent = () => {
                                 <div className="row">
                                     <div className="col-6">
                                         <button type="button" className="btn btn-primary px-4" onClick={() => registerUserDetails()}>Register</button>
+
                                     </div>
                                 </div>
                             </div>

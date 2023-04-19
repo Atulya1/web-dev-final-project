@@ -13,6 +13,7 @@ const NavigationSidebar = () => {
                 <i className="fas fa-home"></i> Home</Link>
             <Link to="login" className={`list-group-item ${active === 'login'?'active':''}`}><i
                 className="fa-sharp fa-solid fa-right-to-bracket"></i>   Login / Register </Link>
+
             <Link to="experience" className={`list-group-item ${active === 'experience'?'active':''}`}><i
                 className="fa-solid fa-mountain-sun"></i> My Experiences</Link>
             <Link to="/wanderer/bucketList" className={`list-group-item ${active === 'bucketlist'?'active':''}`}><i
