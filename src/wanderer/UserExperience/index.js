@@ -82,7 +82,7 @@ const UserExperienceComponent = () => {
                             <div className="card-body">
                                 <p className="text-muted">Write Experience</p>
                                 <div className="input-group mb-3">
-                                    <input type="text" className="form-control" placeholder="User Id" onChange={(e) => onValueChange(e)} name='user_id' value={user_id} id="user_id" />
+                                    <input type="textarea" className="form-control" placeholder="User Id" onChange={(e) => onValueChange(e)} name='user_id' value={user_id} id="user_id" />
                                 </div>
                                 <div className="input-group mb-4">
                                     <PlacesAutocomplete
@@ -135,7 +135,7 @@ const UserExperienceComponent = () => {
                                 <div className="input-group mb-4">
                                     <Rating name="size-small" size="size-medium" onChange={(e) => onValueChange(e)} name='rating' value={rating} id="rating"/>
                                 </div>
-                                <TextField id="outlined-basic" label="Experience heading" onChange={(e) => onValueChange(e)} name='heading' value={heading} id="heading" variant="outlined" rows={3} style={{ width: '745px' }}/>
+                                <TextField  label="Experience heading" onChange={(e) => onValueChange(e)} name='heading' value={heading} id="heading" variant="outlined" rows={3} style={{ width: '745px' }}/>
                                 <br/>
                                 <br/>
                                 <TextField
