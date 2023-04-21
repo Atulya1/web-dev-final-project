@@ -3,12 +3,22 @@ import axios from 'axios';
 const API_BASE = "http://localhost:4000";
 const TUITS_API = `${API_BASE}/api/user`;
 const TRIPS_API = `${API_BASE}/api/trip`;
-
+const BOOKING_API = `${API_BASE}/api/bookings`;
+const CITY_API = `${API_BASE}/api/city`;
+const BUCKET_LIST_API = `${API_BASE}/api/bucketList`;
 
 export const loginUser = async (data) => {
     data = data || '';
-    return await axios.post(`${TUITS_API}/checkLoginCredentials`, data);
+    const response = await axios.post(`${TUITS_API}/checkLoginCredentials`, data);
+    const user = response.data;
+    return user;
 }
+
+export const logout = async () => {
+    const response = await axios.post(`${TUITS_API}/logout`);
+    const status = response.data;
+    return status;
+};
 
 export const registerUserExperience = async (data) => {
     const experience = {rating: data.rating, heading: data.heading, description: data.description};
@@ -70,8 +80,48 @@ export const addUpcomingTrip = async (data) => {
         date_of_travel: date_of_travel
     };
 
+
     return await axios.post(`${TRIPS_API}/addUpcomingTrip`, updatedData);
 }
+
+export const getUpcomingTrip = async () => {
+    const response = await axios.get(`${TRIPS_API}/getUpcomingTrip`);
+    const trip = response.data;
+    return trip;
+}
+
+export const addBooking = async (data) => {
+    data = data || '';
+    const response = await axios.post(`${BOOKING_API}/addBookings`,data);
+    const trip = response;
+    console.log("chetana",trip);
+    return trip;
+}
+
+export const addBucketList = async (data) => {
+    data = data || '';
+    console.log(data);
+    const response = await axios.post(`${BUCKET_LIST_API}/addBucketListItem`,data);
+    const item = response;
+    console.log("chetana",item);
+    return item;
+}
+
+export const findMyBookings = async (data) => {
+    data = data || '';
+    console.log("user id",data);
+    const response = await axios.post(`${BOOKING_API}/findBookingsByUserId`,data);
+    const trip = response;
+    return trip;
+}
+
+export const getCityDetailsByPlaceId = async (place_id) => {
+    console.log("place id",place_id);
+    const response = await axios.get(`${CITY_API}/getCityDetailsByPlaceId/${place_id}`);
+    const trip = response;
+    return trip;
+}
+
 
 export const getPhotos = async (place_id) => {
     const response = await axios
