@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import "./index.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import CitySuggest from "../CitySuggestions";
-import UserReaction from "../UserReactions/user-reaction";
 import PlacesAutocomplete, {
     geocodeByAddress,
     getLatLng,
@@ -10,10 +9,18 @@ import PlacesAutocomplete, {
 import axios from "axios";
 import {useSelector} from "react-redux";
 import {addBucketList, getCityDetailsByPlaceId} from "../../services/wanderer-service";
+import {Link} from "react-router-dom";
+import TopIconsComponent from "../TopIcons";
+import Carousel from 'react-material-ui-carousel';
+import { Paper, Button } from '@mui/material';
+import Fab from '@mui/material/Fab';
 
 const HomeComponentProject = () => {
     const [address, setAddress] = useState("");
+    const [heartToggle, setToggle] = useState(true);
     const [photos, setPhotos] = useState(null);
+    const [index, setIndex] = useState(2);
+    const [searchText, setSearchText] = useState("");
     const [placeId, setPlaceId] = useState("");
     const [user_id, setUserId] = React.useState("");
     const [city_id, setCityId] = React.useState("");
@@ -49,6 +56,8 @@ const HomeComponentProject = () => {
         setAddress(value);
         setCoordinates(latLng);
         setPlaceId(results[0].place_id);
+        setSearchText(value);
+        setAddress("");
     };
 
     const { currentUser } = useSelector((state) => state.user);
@@ -56,19 +65,26 @@ const HomeComponentProject = () => {
     async function handleBookmarks() {
         console.log("place ID",placeId);
         const response = await getCityDetailsByPlaceId(placeId);
+        console.log(response)
         console.log("city id",response.data._id);
         console.log("current user",currentUser);
+        const cityId =  response.data._id
         setCityId(response.data._id);
         if(currentUser) {
             setUserId(currentUser.message._id);}
         console.log("city id",city_id);
-        const responsed = await addBucketList({city_id,user_id});
+        const responsed = await addBucketList({cityId,user_id});
         console.log("city",responsed);
     };
 
     return (
         <>
+            <div>
+                <TopIconsComponent/>
+            </div>
+            <br/>
             <div className="auto-complete-background">
+
                 <PlacesAutocomplete
                     value={address}
                     onChange={setAddress}
@@ -107,82 +123,71 @@ const HomeComponentProject = () => {
                 </PlacesAutocomplete>
             </div>
 
-            <div
-                className="position-relative mb-2"
-                style={{
-                    height: "500px",
-                    overflowX: "auto",
-                    overflowY: "auto",
-                }}
-            >
-                <div id="demo2" className="carousel slide" data-bs-ride="carousel">
-                    <div className="carousel-indicators">
-                        <button
-                            type="button"
-                            data-bs-target="#demo"
-                            data-bs-slide-to="0"
-                            className="active"
-                        ></button>
-                        <button
-                            type="button"
-                            data-bs-target="#demo"
-                            data-bs-slide-to="1"
-                        ></button>
-                        <button
-                            type="button"
-                            data-bs-target="#demo"
-                            data-bs-slide-to="2"
-                        ></button>
-                    </div>
-                    <div className="carousel-inner">
-                        {photos === null ? (
-                            <div className="carousel-item active">
-                                <img
-                                    src="../../Images/Boston2.jpeg"
-                                    alt="boston1"
-                                    className="w-100"
-                                />
-                            </div>
-                        ) : (
-                             photos.map((photo) => (
-                                 <div className="carousel-item active">
-                                     <img src={photo} alt="boston1" className="w-100" />
-                                 </div>
-                             ))
-                         )}
-                    </div>
-                </div>
-            </div>
-            {/*<UserReaction coordinates={coordinates} />*/}
-            <div className="container">
-                <div className="row" style={{width:"1000px"}}>
-                    <div className="row col-lg-4">
-                        <div className="col-md-1 col-sm-6">
-                            <i className="fa-regular fa-bookmark "
-                               onClick= {() => handleBookmarks()}></i></div>
-                        <div className="col-md-8 col-sm-6">
-                            <h6>Add to BucketList</h6></div>
-                    </div>
-                    <div className="row col-lg-4">
-                        <div className="col-md-1 col-sm-6">
-                            <i className="fa-sharp fa-regular fa-thumbs-up"></i></div>
-                        <div className="col-md-8 col-sm-6">
-                            <h6>Like</h6>
+            {
+                searchText == "" ? (
+                    <React.Fragment />
+                ) : (
+                    <div className="row">
+                        <div className="col-10">
+                            <h3 style={{paddingTop: "10px"}}>{searchText}</h3>
+                        </div>
+                        <div className="col-2">
+                            <Fab aria-label="add" style={{float: "right"}} onClick={() => setToggle(!heartToggle)}>
+                                {
+                                    heartToggle ? (
+                                        <i className="fa-regular fa-heart" style={{color: "black", fontSize: "2em"}}></i>
+                                    ) :
+                                    (
+                                        <i className="fa-solid fa-heart" style={{color: "red", fontSize: "2em"}}></i>
+                                    )
+                                }
+                            </Fab>
                         </div>
                     </div>
-                    <div className="row col-lg-4">
-                        <div className="col-md-1 col-sm-6">
-                            <i className="fa-regular fa-pen-to-square"></i></div>
-                        <div className="col-md-8 col-sm-6">
-                            <h6>Write a review</h6></div>
-                    </div>
-                </div>
-                <hr/>
-            </div>
+                )
+            }
+
+            <br/>
+
+            {
+                photos === null ? (
+                    <React.Fragment />
+                ) : (
+                    <CustomCarosuel images={photos} index={index} setDefaultIndex={() => setIndex(0)}/>
+                )
+            }
+
+            {/*<UserReaction coordinates={coordinates} />*/}
+
 
             <CitySuggest />
         </>
     );
 };
+
+function Item(props)
+{
+    return (
+        <Paper style={{borderRadius: "21px"}}>
+            <img src={props.item} alt="boston1" className="w-100" style={{height: "500px", borderRadius: "21px"}}/>
+        </Paper>
+    )
+}
+
+function CustomCarosuel(props) {
+    return (
+        <Carousel
+            NextIcon={<i class="fa-solid fa-circle-chevron-right"></i>}
+            PrevIcon={<i class="fa-solid fa-circle-chevron-left"></i>}
+            swipe={true}
+            index={props.index}
+            onChange={props.setDefaultIndex}
+        >
+            {
+                props.images.map( (item, i) => <Item key={i} item={item} /> )
+            }
+        </Carousel>
+    )
+}
 
 export default HomeComponentProject;

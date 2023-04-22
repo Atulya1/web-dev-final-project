@@ -49,7 +49,7 @@ const BookATripComponent = ({
             const response = await addBooking({user_id, trip_id});
             if (response.status == 200) {
                 window.alert("Booking Done");
-                navigate(`/`);
+                navigate(`/wanderer/bookings`);
             } else {
                 window.alert("error occured in booking");
             }

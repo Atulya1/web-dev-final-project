@@ -12,7 +12,8 @@ const initialState = {
 };
 const userSlice = createSlice({
                                   name: "user",
-                                  initialState,
+                                  initialState: localStorage.getItem('user') ?
+                                      { currentUser: JSON.parse(localStorage.getItem('user')) } : initialState,
                                   // reducers: {
                                   //     updateCurrentUser: (state, { payload }) => {
                                   //         state.currentUser = payload;
@@ -20,6 +21,7 @@ const userSlice = createSlice({
                                   // },
                                   extraReducers: {
                                       [loginThunk.fulfilled]: (state, { payload }) => {
+                                          localStorage.setItem('user', JSON.stringify(payload))
                                           state.currentUser = payload;
                                       },
                                       [loginThunk.rejected]: (state, { payload }) => {
@@ -33,6 +35,7 @@ const userSlice = createSlice({
                                           console.log("Pending");
                                       },
                                       [logoutThunk.fulfilled]: (state) => {
+                                          localStorage.removeItem('user');
                                           state.currentUser = null;
                                       },
                                       // // [profileThunk.fulfilled]: (state, { payload }) => {

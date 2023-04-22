@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import "./index.css";
+import "./login.css";
 import {useNavigate} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import { loginThunk } from "../../services/wanderer-thunk";
@@ -37,7 +37,7 @@ const LoginComponent = () => {
     const handleLogin = async () => {
         try {
             await dispatch(loginThunk(user));
-            navigate("/profile");
+            navigate("/wanderer/profile");
         } catch (e) {
             alert(e);
         }
@@ -86,6 +86,44 @@ const LoginComponent = () => {
                     </div>
                 </div>
             </div>
+        // <div className="container">
+        //     <div className="form">
+        //         <div className="sign-in-section">
+        //             <h1>Log in</h1>
+        //             <br/>
+        //             {/*<ul>*/}
+        //             {/*    <li><i className="fab fa-facebook-f"></i></li>*/}
+        //             {/*    <li><i className="fab fa-linkedin-in"></i></li>*/}
+        //             {/*    <li><i className="fab fa-twitter"></i></li>*/}
+        //             {/*</ul>*/}
+        //             <p>or use your email</p>
+        //             <form>
+        //                 <div className="form-field">
+        //                     <label htmlFor="email">Email</label>
+        //                     <input id="email" type="email" placeholder="Email"/>
+        //                 </div>
+        //                 <div className="form-field">
+        //                     <label htmlFor="password">Password</label>
+        //                     <input id="password" type="password" placeholder="Password"/>
+        //                 </div>
+        //                 <div className="form-options">
+        //                     <div className="checkbox-field">
+        //                         <input id="rememberMe" type="checkbox" className="checkbox"/>
+        //                         <label htmlFor="rememberMe">Remember Me</label>
+        //                     </div>
+        //                     <a href="#">Forgot Password?</a>
+        //                 </div>
+        //                 <div className="form-field">
+        //                     <input type="submit" className="btn btn-signin" value="Submit"/>
+        //                 </div>
+        //             </form>
+        //             <div className="links">
+        //                 <a href="#">Privacy Policy</a>
+        //                 <a href="#">Terms & Conditions</a>
+        //             </div>
+        //         </div>
+        //     </div>
+        // </div>
     )
 };
 export default LoginComponent;

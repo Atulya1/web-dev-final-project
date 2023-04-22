@@ -83,7 +83,7 @@ const DetailExperience = (
                     <div>
                         <text className="Heading text-black fw-bold">Places to eat and shop: </text>
                         <br/>
-                        {detailExperience.places_food_shop.map( x => {
+                        {detailExperience.places_to_eat.map( x => {
                                                                   return (
                                                                       <React.Fragment>
                                                                           <span className="Heading text-black">{x}</span>
@@ -91,6 +91,15 @@ const DetailExperience = (
                                                                       </React.Fragment>
                                                                   )
                                                               }
+                        )}
+                        {detailExperience.places_to_shop.map( x => {
+                                                                 return (
+                                                                     <React.Fragment>
+                                                                         <span className="Heading text-black">{x}</span>
+                                                                         <br/>
+                                                                     </React.Fragment>
+                                                                 )
+                                                             }
                         )}
                     </div>
                     <div>
