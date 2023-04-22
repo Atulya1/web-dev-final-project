@@ -85,14 +85,13 @@ const UpcomingTripsComponent = () => {
     return (
         <div className="container">
             <div className="row justify-content-center">
-                <div className="col-md-8">
+                <div>
                     <div className="card-group mb-0">
                         <div className="card p-4">
                             <div className="card-body">
                                 <p className="text-muted">Create Upcoming Trip</p>
                                 <div className="input-group mb-3">
-                                    <span className="input-group-addon"><i
-                                        className="fa fa-user"></i></span>
+                                    <span className="input-group-addon"></span>
                                     <PlacesAutocomplete
                                         value={address}
                                         onChange={setAddress}
@@ -131,23 +130,20 @@ const UpcomingTripsComponent = () => {
                                     </PlacesAutocomplete>
                                 </div>
                                 <div className="input-group mb-3">
-                                    <span className="input-group-addon"><i
-                                        className="fa fa-user"></i></span>
+                                    <span className="input-group-addon"></span>
                                     <input type="text" className="form-control"
                                            placeholder="place_id" onChange={(e) => onValueChange(e)}
                                            name='place_id' value={placeId} id="place_id"/>
                                 </div>
                                 <div className="input-group mb-3">
-                                    <span className="input-group-addon"><i
-                                        className="fa fa-user"></i></span>
+                                    <span className="input-group-addon"></span>
                                     <input type="textarea" className="form-control"
                                            placeholder="Itinerary"
                                            onChange={(e) => onValueChange(e)}
                                            name='itinerary' value={itinerary} id="itinerary"/>
                                 </div>
                                 <div className="input-group mb-3">
-                                    <span className="input-group-addon"><i
-                                        className="fa fa-user"></i></span>
+                                    <span className="input-group-addon"></span>
                                     <input type="number" className="form-control"
                                            placeholder="Cost of the Trip"
                                            onChange={(e) => onValueChange(e)}
@@ -191,8 +187,7 @@ const UpcomingTripsComponent = () => {
                                     </div>
                                     <br/>
                                     <div className="input-group mb-3">
-                                    <span className="input-group-addon"><i
-                                        className="fa fa-user"></i></span>
+                                    <span className="input-group-addon"></span>
                                         <input type="text" className="form-control"
                                                placeholder="Things to get"
                                                onChange={(e) => onValueChange(e)}
@@ -248,16 +243,14 @@ const UpcomingTripsComponent = () => {
                                     </div>
                                     <br/>
                                     <div className="input-group mb-3">
-                                    <span className="input-group-addon"><i
-                                        className="fa fa-user"></i></span>
+                                    <span className="input-group-addon"></span>
                                         <input type="text" className="form-control"
                                                placeholder="Pick Up Location"
                                                onChange={(e) => onValueChange(e)}
                                                name='pickup' value={pickup} id="pickup"/>
                                     </div>
                                     <div className="input-group mb-3">
-                                    <span className="input-group-addon"><i
-                                        className="fa fa-user"></i></span>
+                                    <span className="input-group-addon"></span>
                                         <input type="text" className="form-control"
                                                placeholder="Drop Off Location"
                                                onChange={(e) => onValueChange(e)}
@@ -265,16 +258,14 @@ const UpcomingTripsComponent = () => {
                                     </div>
                                     <h6>Date of Departure</h6>
                                     <div className="input-group mb-3">
-                                    <span className="input-group-addon"><i
-                                        className="fa fa-user"></i></span>
+                                    <span className="input-group-addon"></span>
                                         <input type="date" className="form-control"
                                                onChange={(e) => onValueChange(e)}
                                                name='date_of_departure' value={date_of_departure} id="date_of_departure"/>
                                     </div>
                                     <h6>Date of Arrival</h6>
                                     <div className="input-group mb-3">
-                                    <span className="input-group-addon"><i
-                                        className="fa fa-user"></i></span>
+                                    <span className="input-group-addon"></span>
                                         <input type="date" className="form-control"
                                                onChange={(e) => onValueChange(e)}
                                                name='date_of_arrival' value={date_of_arrival} id="date_of_arrival"/>

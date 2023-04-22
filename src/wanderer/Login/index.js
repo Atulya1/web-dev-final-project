@@ -1,7 +1,8 @@
 import React, {useEffect, useState} from "react";
-import "./index.css";
+import "./login.css";
 import {useNavigate} from "react-router-dom";
-import {loginUser} from "../../services/wanderer-service.js"
+import {useDispatch, useSelector} from "react-redux";
+import { loginThunk } from "../../services/wanderer-thunk";
 
 const initialValue = {
     username: '',
@@ -17,26 +18,39 @@ const LoginComponent = () => {
         const onValueChange = (e) => {
             console.log({[e.target.name]: e.target.value});
             setUser({...user, [e.target.name]: e.target.value})
-        }
+        };
 
-        const addUserDetails = async() => {
-            const response = await loginUser(user);
-            console.log(response.data);
-            if(response.data.status == 200) {
-                console.log(response.data.message._id);
-                navigate(`/profile/${response.data.message._id}`);
-            } else {
-                window.alert(response.data.message);
-            }
+        // const addUserDetails = async() => {
+        //     const response = await login(user);
+        //     console.log(response.data);
+        //     if(response.data.status == 200) {
+        //         console.log(response.data.message._id);
+        //         navigate(`/profile/${response.data.message._id}`);
+        //     } else {
+        //         window.alert(response.data.message);
+        //     }
+        // }
+
+
+
+    const dispatch = useDispatch();
+    const handleLogin = async () => {
+        try {
+            await dispatch(loginThunk(user));
+            navigate("/wanderer/profile");
+        } catch (e) {
+            alert(e);
         }
+    };
+
         const handleRegister = () => {
             navigate('/register');
-        }
+        };
 
     return(
             <div className="container">
                 <div className="row justify-content-center">
-                    <div className="col-md-8">
+                    <div className="col-md-10">
                         <div className="card-group mb-0">
                             <div className="card p-4">
                                 <div className="card-body">
@@ -44,7 +58,7 @@ const LoginComponent = () => {
                                     <p className="text-muted">Sign In to your account</p>
                                     <div className="input-group mb-3">
                                         <span className="input-group-addon"><i className="fa fa-user"></i></span>
-                                        <input type="text" className="form-control" placeholder="Username" onChange={(e) => onValueChange(e)} name='username' value={username} id="username" />
+                                        <input type="textarea" className="form-control" placeholder="Username" onChange={(e) => onValueChange(e)} name='username' value={username} id="username" />
                                     </div>
                                     <div className="input-group mb-4">
                                         <span className="input-group-addon"><i className="fa fa-lock"></i></span>
@@ -52,7 +66,7 @@ const LoginComponent = () => {
                                     </div>
                                     <div className="row">
                                         <div className="col-6">
-                                            <button type="button" className="btn btn-primary px-4" onClick={() => addUserDetails()}>Login</button>
+                                            <button type="button" className="btn btn-primary px-4" onClick={() => handleLogin()}>Login</button>
                                         </div>
                                     </div>
                                 </div>
@@ -61,8 +75,8 @@ const LoginComponent = () => {
                                 <div className="card-body text-center">
                                     <div>
                                         <h2>Sign up</h2>
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                                            tempor incididunt ut labore et dolore magna aliqua.</p>
+                                        {/*<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod*/}
+                                        {/*    tempor incididunt ut labore et dolore magna aliqua.</p>*/}
                                         <button type="button" className="btn btn-primary active mt-3" onClick={() => handleRegister()}>Register Now!
                                         </button>
                                     </div>
@@ -72,6 +86,44 @@ const LoginComponent = () => {
                     </div>
                 </div>
             </div>
+        // <div className="container">
+        //     <div className="form">
+        //         <div className="sign-in-section">
+        //             <h1>Log in</h1>
+        //             <br/>
+        //             {/*<ul>*/}
+        //             {/*    <li><i className="fab fa-facebook-f"></i></li>*/}
+        //             {/*    <li><i className="fab fa-linkedin-in"></i></li>*/}
+        //             {/*    <li><i className="fab fa-twitter"></i></li>*/}
+        //             {/*</ul>*/}
+        //             <p>or use your email</p>
+        //             <form>
+        //                 <div className="form-field">
+        //                     <label htmlFor="email">Email</label>
+        //                     <input id="email" type="email" placeholder="Email"/>
+        //                 </div>
+        //                 <div className="form-field">
+        //                     <label htmlFor="password">Password</label>
+        //                     <input id="password" type="password" placeholder="Password"/>
+        //                 </div>
+        //                 <div className="form-options">
+        //                     <div className="checkbox-field">
+        //                         <input id="rememberMe" type="checkbox" className="checkbox"/>
+        //                         <label htmlFor="rememberMe">Remember Me</label>
+        //                     </div>
+        //                     <a href="#">Forgot Password?</a>
+        //                 </div>
+        //                 <div className="form-field">
+        //                     <input type="submit" className="btn btn-signin" value="Submit"/>
+        //                 </div>
+        //             </form>
+        //             <div className="links">
+        //                 <a href="#">Privacy Policy</a>
+        //                 <a href="#">Terms & Conditions</a>
+        //             </div>
+        //         </div>
+        //     </div>
+        // </div>
     )
 };
 export default LoginComponent;
