@@ -12,7 +12,8 @@ import PlacesAutocomplete, {
     getLatLng
 } from "react-places-autocomplete";
 import Rating from "@mui/material/Rating";
-import { registerUserExperience} from "../../services/wanderer-service";
+import {getBucketListItems, registerUserExperience} from "../../services/wanderer-service";
+import {useSelector} from "react-redux";
 const initialValue = {
     user_id: '',
     place_id: '',
@@ -32,15 +33,23 @@ const initialValue = {
 const UserExperienceComponent = () => {
 
     const [userExperience, setUserExperience] = useState(initialValue);
+    const { currentUser } = useSelector((state) => state.user);
     const [address, setAddress] = React.useState("");
     const [formatedAddress, setFormatedAddress] = React.useState("");
     const [placeId, setPlaceId] = React.useState("");
+    const nav = useNavigate();
     const { user_id, place_id, travel_place,
             rating,
             heading,
             description, places_visited, date_of_review, estimated_expenses, places_to_eat, places_to_shop, itinerary, travel_date} = userExperience;
 
     let navigate = useNavigate();
+
+    useEffect(() => {
+        if (!currentUser) {
+            nav('/login');
+        }
+    }, []);
 
     const onValueChange = (e) => {
         console.log({[e.target.name]: e.target.value});
@@ -51,6 +60,7 @@ const UserExperienceComponent = () => {
         console.log(userExperience);
         console.log(placeId)
         console.log(formatedAddress);
+        userExperience.user_id = currentUser._id;
         userExperience.place_id = placeId;
         userExperience.travel_place = formatedAddress;
         console.log(userExperience);
@@ -82,7 +92,7 @@ const UserExperienceComponent = () => {
                             <div className="card-body">
                                 <p className="text-muted">Write Experience</p>
                                 <div className="input-group mb-3">
-                                    <input type="textarea" className="form-control" placeholder="User Id" onChange={(e) => onValueChange(e)} name='user_id' value={user_id} id="user_id" />
+                                    <input type="textarea" className="form-control" placeholder="User Id" onChange={(e) => onValueChange(e)} name='user_id' value={currentUser._id} id="user_id" />
                                 </div>
                                 <div className="input-group mb-4">
                                     <PlacesAutocomplete

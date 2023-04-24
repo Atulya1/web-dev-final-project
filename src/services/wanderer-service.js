@@ -159,3 +159,20 @@ export const getExperiencesByUserId = async (userId) => {
     console.log(response);
     return response.data;
 }
+
+export const updateProfile = async (userId, data) => {
+
+    const updatedData = {
+        name: data.name,
+        username: data.username,
+        password: data.password,
+        email: data.email,
+        dob: data.dob,
+        phone_number: data.phone_number
+    };
+    console.log("data sending",updatedData);
+    const response = await axios
+        .put(`${TUITS_API}/updateUser/${userId}`,updatedData);
+    console.log(response);
+    return response.data;
+}

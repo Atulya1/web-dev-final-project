@@ -1,10 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
 import {
-    loginThunk, logoutThunk
+    loginThunk, logoutThunk, updateUserThunk
     // logoutThunk,
     // // registerThunk,
     // // profileThunk,
-    // updateUserThunk,
 } from "../services/wanderer-thunk";
 
 const initialState = {
@@ -21,8 +20,8 @@ const userSlice = createSlice({
                                   // },
                                   extraReducers: {
                                       [loginThunk.fulfilled]: (state, { payload }) => {
-                                          localStorage.setItem('user', JSON.stringify(payload))
-                                          state.currentUser = payload;
+                                          localStorage.setItem('user', JSON.stringify(payload.message))
+                                          state.currentUser = payload.message;
                                       },
                                       [loginThunk.rejected]: (state, { payload }) => {
                                           // state.currentUser = payload;
@@ -44,9 +43,15 @@ const userSlice = createSlice({
                                       // // [registerThunk.fulfilled]: (state, { payload }) => {
                                       // //     state.currentUser = payload;
                                       // // },
-                                      // [updateUserThunk.fulfilled]: (state, { payload }) => {
-                                      //     state.currentUser = payload;
-                                      // },
+                                      [updateUserThunk.fulfilled]: (state, { payload }) => {
+                                          console.log("hello", payload);
+                                          localStorage.setItem('user', JSON.stringify(payload))
+                                          state.currentUser = payload;
+                                          console.log("updated");
+                                      },
+                                      [updateUserThunk.rejected]: (state, { payload }) => {
+                                          console.log("Failed");
+                                      },
                                   },
                               });
 

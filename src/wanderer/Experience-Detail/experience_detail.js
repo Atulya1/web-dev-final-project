@@ -65,7 +65,7 @@ const DetailExperience = (
                     </div>
                     <span style={{fontWeight: "bold"}}>Places Visited: </span>
                     <div>
-                        {detailExperience.places_visited.map( x => {
+                        {detailExperience.places_visited?.map( x => {
                             return (
                                 <React.Fragment>
                                     <span className="Heading text-black">{x}</span>
@@ -83,7 +83,7 @@ const DetailExperience = (
                     <div>
                         <text className="Heading text-black fw-bold">Places to eat and shop: </text>
                         <br/>
-                        {detailExperience.places_to_eat.map( x => {
+                        {detailExperience.places_to_eat?.map( x => {
                                                                   return (
                                                                       <React.Fragment>
                                                                           <span className="Heading text-black">{x}</span>
@@ -92,7 +92,7 @@ const DetailExperience = (
                                                                   )
                                                               }
                         )}
-                        {detailExperience.places_to_shop.map( x => {
+                        {detailExperience.places_to_shop?.map( x => {
                                                                  return (
                                                                      <React.Fragment>
                                                                          <span className="Heading text-black">{x}</span>

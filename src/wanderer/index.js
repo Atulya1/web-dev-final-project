@@ -17,7 +17,7 @@ import CitySuggest from "./CitySuggestions";
 import NavBarTop from "./NavBarTop";
 import HomeComponentProject from "./HomeComponent/HomeComponentProject";
 import ProfileComponent from "./ProfileScreen";
-import EditProfileComponent from "./EditProfile";
+import EditProfileComponent from "./ProfileScreen/edit-profile";
 import DetailExpOfUser from "./MyExperiences/my_experiences";
 import LoginComponent from "./Login/index.js";
 import RegisterComponent from "./Register/index.js";
@@ -27,8 +27,7 @@ import userDetailsReducer from "../redux/user-details-reducer";
 import BookATrip from "./BookATrip";
 import MyBookings from "./MyBookings";
 import MyBucketList from "./MyBucketList";
-import NavBaratTop from "./NavBarTop";
-import TopIconsComponent from "./TopIcons";
+import LayoutComponent from "./Layout";
 
 const store = configureStore({
                                  reducer: {profile: profileReducer, experience: experienceReducer, experiencedetail: experienceDetail,
@@ -38,45 +37,12 @@ const store = configureStore({
 function Wanderer() {
     return (
         <Provider store={store}>
-            {/*<div style={{"position": "fixed",*/}
-            {/*    "top": 0,*/}
-            {/*    "width":"100%",*/}
-            {/*    "z-index": "20"}}><NavBaratTop/></div>*/}
-
 
             <div className="row" >
                 <Routes>
-                    <Route path="/login" element={<LoginComponent/>}/>
+                    <Route exact path="/login" element={<LoginComponent/>} />
+                    <Route path="/*" element={<LayoutComponent/>} />
                 </Routes>
-                <div className="col-2">
-                    <NavigationSidebar active="explore"/>
-                </div>
-                <div className="col-8"
-                     style={{"position": "relative"}}>
-                    <br/>
-                    <Routes>
-                        <Route path="/" element={<HomeComponentProject/>}/>
-                        {/*//<Route path="wanderer" element={<HomeComponentProject/>}/>*/}
-                        <Route path="/explore/:id" element={<GlobalCities/>}/>
-                        <Route path="/wanderer/profile" element={<ProfileComponent/>}/>
-                        <Route path="/profile/:id" element={<ProfileComponent/>}/>
-                        <Route path="/edit-profile" element={<EditProfileComponent/>}/>
-                        <Route path="/experiencedetail/:id" element={<DetailExp/>}/>
-                        <Route path="/cities" element={<CitySuggest/>}/>
-                        <Route path="/experience" element={<DetailExpOfUser/>}/>
-                        <Route path="/register" element={<RegisterComponent/>}/>
-                        <Route path="/wanderer/reviews" element={<UserExperienceComponent/>}/>
-                        <Route path="/wanderer/bookatrip" element={<BookATrip/>}/>
-                        <Route path="/wanderer/upcomingTrips" element={<UpcomingTripsComponent/>}/>
-                        <Route path="/wanderer/bookings" element={<MyBookings/>}/>
-                        <Route path="/wanderer/bucketList" element={<MyBucketList/>}/>
-                    </Routes>
-                </div>
-                {/*<div className="col-3" style={{"height": "780px",*/}
-                {/*    "overflow-x": "auto",*/}
-                {/*    "overflow-y": "auto"}}>*/}
-                {/*    <HomeExp/>*/}
-                {/*</div>*/}
             </div>
         </Provider>
     )

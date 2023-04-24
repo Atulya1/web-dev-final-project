@@ -79,9 +79,13 @@ const HomeComponentProject = () => {
 
     return (
         <>
-            <div>
-                <TopIconsComponent/>
-            </div>
+            {
+                currentUser &&
+                <div>
+                    <TopIconsComponent/>
+                </div>
+            }
+
             <br/>
             <div className="auto-complete-background">
 

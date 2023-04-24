@@ -3,23 +3,29 @@ import {
   findMyBookings,
   getUpcomingTrip,
 } from "../../services/wanderer-service";
-import { useSelector } from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import MyBookingsComponent from "./mybookings";
 import "./mybookings.css";
+import {useNavigate} from "react-router-dom";
 const MyBookings = () => {
   const [userId, setUserId] = useState("");
+  const nav = useNavigate();
   const { currentUser } = useSelector((state) => state.user);
   const [myBookings, setMyBookings] = useState([]);
 
   useEffect(() => {
+    if (currentUser) {
+      setUserId(currentUser?._id);
+    }
+    else {
+      nav('/login');
+    }
     async function getMyBookings() {
       const response = await findMyBookings(userId);
       console.log("booking details", response);
       setMyBookings(response?.data);
     }
-    if (currentUser) {
-      setUserId(currentUser?.message._id);
-    }
+
     if (userId?.length > 0) getMyBookings();
   }, [currentUser, setMyBookings, userId]);
 

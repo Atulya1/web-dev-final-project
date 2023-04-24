@@ -61,19 +61,24 @@ import {
 } from "../../services/wanderer-service";
 import { useSelector } from "react-redux";
 import MyBucketListComponent from "./mybucketlist";
+import {useNavigate} from "react-router-dom";
 const MyBucketList = () => {
     const [userId, setUserId] = useState("");
     const { currentUser } = useSelector((state) => state.user);
     const [myBucketList, setmyBucketList] = useState([]);
+    const nav = useNavigate();
 
     useEffect(() => {
+        if (currentUser) {
+            setUserId(currentUser?._id);
+        }
+        else {
+            nav('/login');
+        }
         async function getMyBucketList() {
             const response = await getBucketListItems(userId);
             console.log("bucket list details", response);
             setmyBucketList(response?.data);
-        }
-        if (currentUser) {
-            setUserId(currentUser?.message._id);
         }
         if (userId?.length > 0) getMyBucketList();
     }, [currentUser, setmyBucketList, userId]);

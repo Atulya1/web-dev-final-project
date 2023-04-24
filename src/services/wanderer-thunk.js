@@ -9,13 +9,13 @@ export const loginThunk = createAsyncThunk(
     }
 );
 
-// export const updateUserThunk = createAsyncThunk(
-//     "user/updateUser",
-//     async (user) => {
-//         const status = await wandererService.updateUser(user);
-//         return user;
-//     }
-// );
+export const updateUserThunk = createAsyncThunk(
+    "user/updateUser",
+    async ( {userId,data} ) => {
+        const status = await wandererService.updateProfile(userId,data);
+        return status;
+    }
+);
 
 export const logoutThunk = createAsyncThunk("user/logout", async () => {
     const status = await wandererService.logout();

@@ -36,7 +36,7 @@ const BookATripComponent = ({
 
     useEffect(() => {
         if(currentUser) {
-            setUserId(currentUser.message._id);
+            setUserId(currentUser._id);
             setTripId(tripDetails._id);
         }
     },[])
