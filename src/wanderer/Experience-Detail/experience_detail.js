@@ -40,7 +40,7 @@ const DetailExperience = (
         <li className="list-group-item">
             <div className="row">
                 <div className="col-1">
-                    <img className="rounded-circle" height={44} width={48} alt={"avatarIcon"} src={`../images/${detailExperience.userAvtar}`}/>
+                    <img className="rounded-circle" height={44} width={48} alt={"avatarIcon"} src={`../../Images/wandererprofilepic.jpeg`}/>
                 </div>
                 <div className="col-11">
                     <div className="row">
