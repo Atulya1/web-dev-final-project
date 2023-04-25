@@ -5,28 +5,33 @@ import "./index.css";
 import { Carousel } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import cities from "./cities.json";
+import HomeComponentProject from "../HomeComponent/HomeComponentProject";
 const CitySuggestion = ({
                             citySuggest = {
                                 _id: 123,
-                                placeID: 234,
+                                placeID: "ChIJOwg_06VPwokRYv534QaPC8g",
                                 imageURL:
                                     "https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photo_reference=AUjq9jne4pWM2oSP_1iOUNQFJMqI7jjWtbJTNG3kAcQV2rtYXj7hgEqxIkAG5mVeZ3uKFgCDOEYZDQDUEyOrmfviuqOEeMNQniuhkP4bTS0UGQySpFYzDKJbj_Af9TGmtvI15kje0fkyhnICICnxN4QAzsufY2HMzMtobHdF9AxgeLPc_mL2&key=AIzaSyDD0GxnUVXCqw-diJgj35DY_uOOVb8HJBE",
-                                cityName: "Newyork",
+                                cityName: "New York",
                             },
                         }) => {
+    const handleClick = () => {
+
+    };
     return (
         <div className="div-realtive">
-            <Link
-                to={"/tuiter/experiencedetail/" + citySuggest._id}
-                style={{ textDecoration: "none" }}
-            >
+            {/*<Link*/}
+            {/*    to={"/tuiter/experiencedetail/" + citySuggest._id}*/}
+            {/*    style={{ textDecoration: "none" }}*/}
+            {/*>*/}
                 <img
                     height={250}
                     width={250}
                     alt={"avatarIcon"}
                     src={`${citySuggest.imageURL}`}
+                    onClick={handleClick()}
                 />
-            </Link>
+            {/*</Link>*/}
             <h1 className="text-position">{citySuggest.cityName}</h1>
         </div>
     );

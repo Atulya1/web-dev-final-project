@@ -126,8 +126,27 @@ export const findMyBookings = async (data) => {
 export const getCityDetailsByPlaceId = async (place_id) => {
     console.log("place id",place_id);
     const response = await axios.get(`${CITY_API}/getCityDetailsByPlaceId/${place_id}`);
-    const trip = response;
-    return trip;
+    console.log(response.data);
+    if(response.data.status == 404) {
+        const cityDetails = {
+            city_name: {
+                city: "",
+                country: ""
+            },
+            geolocation: {
+                latitude: "",
+                longitude: ""
+            },
+            place_id: "",
+            place_description: "",
+            best_time_to_visit: [],
+            places_to_see: [],
+            places_to_eat: []
+        }
+        return cityDetails;
+    } else {
+        return response.data.message;
+    }
 }
 
 export const getBucketListItems = async (data) => {
