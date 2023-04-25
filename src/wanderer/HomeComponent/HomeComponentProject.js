@@ -8,7 +8,11 @@ import PlacesAutocomplete, {
 } from "react-places-autocomplete";
 import axios from "axios";
 import {useDispatch, useSelector} from "react-redux";
-import {addBucketList, getCityDetailsByPlaceId} from "../../services/wanderer-service";
+import {
+    addBucketList,
+    getCityDetailsByPlaceId,
+    getExperiencesByPlaceId, getExperiencesByUserId, getUserByUserId
+} from "../../services/wanderer-service";
 import {Link} from "react-router-dom";
 import TopIconsComponent from "../TopIcons";
 import Carousel from 'react-material-ui-carousel';
@@ -16,6 +20,9 @@ import { Paper, Button } from '@mui/material';
 import Fab from '@mui/material/Fab';
 import {loginThunk} from "../../services/wanderer-thunk";
 import * as wandererService from "../../services/wanderer-service";
+import {Route, Routes} from "react-router";
+import HomeExp from "../Experiences";
+import HomeExperience from "../Experiences/home-experience";
 
 const HomeComponentProject = ({
                                   citySuggest = {
@@ -34,6 +41,7 @@ const HomeComponentProject = ({
     const [user_id, setUserId] = React.useState("");
     const [city_id, setCityId] = React.useState("");
     const [cityDetails, setCityDetails] = React.useState(null);
+    const [userExperiences, setUserExperiences] = useState([]);
 
     const [coordinates, setCoordinates] = useState({
                                                        lat: null,
@@ -57,8 +65,17 @@ const HomeComponentProject = ({
                 console.error(error);
             }
         }
+        async function fetchDataByPlaceId() {
+            try {
+                const response = await getExperiencesByPlaceId(placeId);
+                setUserExperiences(response);
+            } catch (error) {
+                console.error(error);
+            }
+        }
         if (placeId !== "") {
             fetchData();
+            fetchDataByPlaceId();
         }
     }, [placeId]);
 
@@ -77,19 +94,21 @@ const HomeComponentProject = ({
 
     const { currentUser } = useSelector((state) => state.user);
 
-    async function handleBookmarks() {
+    async function handleBucketList() {
         console.log("place ID",placeId);
         const response = await getCityDetailsByPlaceId(placeId);
-        console.log(response)
+        console.log("responsess",response);
         console.log("city id",response.data._id);
         console.log("current user",currentUser);
-        const cityId =  response.data._id
+        const city_id =  response.data._id
         setCityId(response.data._id);
         if(currentUser) {
-            setUserId(currentUser.message._id);}
-        console.log("city id",city_id);
-        const responsed = await addBucketList({cityId,user_id});
-        console.log("city",responsed);
+            setUserId(currentUser._id);
+            console.log(currentUser._id);
+            console.log("city id 2",city_id);
+            const responsed = await addBucketList({city_id, user_id: currentUser._id});
+            console.log("city",responsed);
+        }
     };
 
     const dispatch = useDispatch();
@@ -98,12 +117,20 @@ const HomeComponentProject = ({
         setPlaceId(placeId);
         setSearchText(cityName);
     }
-
+    const handleHeartClick = async (value) => {
+        setToggle(!heartToggle);
+        await handleBucketList();
+    }
     return (
-        <>
-            <div>
-                <TopIconsComponent/>
-            </div>
+        <div className="row">
+            <div className="col-9">
+            {
+                currentUser &&
+                <div>
+                    <TopIconsComponent/>
+                </div>
+            }
+
             <br/>
             <div className="auto-complete-background">
 
@@ -154,7 +181,7 @@ const HomeComponentProject = ({
                             <h3 style={{paddingTop: "10px"}}>{searchText}</h3>
                         </div>
                         <div className="col-2">
-                            <Fab aria-label="add" style={{float: "right"}} onClick={() => setToggle(!heartToggle)}>
+                            <Fab aria-label="add" style={{float: "right"}} onClick={() => handleHeartClick()}>
                                 {
                                     heartToggle ? (
                                         <i className="fa-regular fa-heart" style={{color: "black", fontSize: "2em"}}></i>
@@ -226,7 +253,20 @@ const HomeComponentProject = ({
                     </tbody>
                 </table>
             </div>
-        </>
+            </div>
+                <div className="col-3" style={{paddingTop:23}}>
+                    <ul className="list-group">
+                        {
+                            userExperiences?.map(experience =>
+                                                    <HomeExperience
+                                                        key={experience._id}
+                                                        homeExperience={experience}/>
+                            )
+                        }
+                    </ul>
+                </div>
+
+        </div>
     );
 };
 

@@ -27,8 +27,6 @@ import userDetailsReducer from "../redux/user-details-reducer";
 import BookATrip from "./BookATrip";
 import MyBookings from "./MyBookings";
 import MyBucketList from "./MyBucketList";
-import NavBaratTop from "./NavBarTop";
-import TopIconsComponent from "./TopIcons";
 
 const store = configureStore({
                                  reducer: {profile: profileReducer, experience: experienceReducer, experiencedetail: experienceDetail,
@@ -51,7 +49,7 @@ function Wanderer() {
                 <div className="col-2">
                     <NavigationSidebar active="explore"/>
                 </div>
-                <div className="col-8"
+                <div className="col-10"
                      style={{"position": "relative"}}>
                     <br/>
                     <Routes>

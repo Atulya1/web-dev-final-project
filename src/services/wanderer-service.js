@@ -90,6 +90,12 @@ export const getUpcomingTrip = async () => {
     return trip;
 }
 
+export const getUserByUserId = async (data) => {
+    const response = await axios.get(`${TUITS_API}/getUser/${data}`);
+    const userDetails = response.data;
+    return userDetails;
+}
+
 export const addBooking = async (data) => {
     data = data || '';
     const response = await axios.post(`${BOOKING_API}/addBookings`,data);
@@ -173,8 +179,34 @@ export const getExperiences = async () => {
 
 export const getExperiencesByUserId = async (userId) => {
     const data =  { userId: userId};
+    console.log("data",data);
     const response = await axios
         .post(`${TUITS_API}/getUserExperiencebyUserId`, data);
+    console.log("hi",response);
+    return response.data;
+}
+
+export const getExperiencesByPlaceId = async (placeId) => {
+    const data =  { placeId: placeId};
+    console.log("data",data);
+    const response = await axios
+        .post(`${TUITS_API}/getUserExperiencebyPlaceId`, data);
+    console.log("getUserExperiencebyPlaceId data",response);
+    return response.data;
+}
+export const updateProfile = async (userId, data) => {
+
+    const updatedData = {
+        name: data.name,
+        username: data.username,
+        password: data.password,
+        email: data.email,
+        dob: data.dob,
+        phone_number: data.phone_number
+    };
+    console.log("data sending",updatedData);
+    const response = await axios
+        .put(`${TUITS_API}/updateUser/${userId}`,updatedData);
     console.log(response);
     return response.data;
 }
