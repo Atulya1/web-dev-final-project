@@ -1,8 +1,9 @@
-import React from "react";
+import React, {useState} from "react";
 import { useSelector } from "react-redux";
 import CitySuggestion from "./city_suggestions";
 const CitySuggest = () => {
     const citiesSuggestions = useSelector((state) => state.CitySuggestions);
+
     return (
         <div className="table-responsive">
             <table className="table">

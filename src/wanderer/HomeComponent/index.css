@@ -57,3 +57,32 @@
     outline: none;
 }
 
+
+
+.wd-nudge-up {
+    bottom: 1335px;
+    left: auto;
+    z-index: 10;
+}
+
+
+.div-realtive{
+    position: relative;
+}
+
+.text-position{
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+    color: white;
+    font-size: 30px;
+
+}
+
+.image-container{
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    overflow-x: auto;
+    white-space: nowrap;
+}

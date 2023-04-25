@@ -7,23 +7,33 @@ import PlacesAutocomplete, {
     getLatLng,
 } from "react-places-autocomplete";
 import axios from "axios";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {addBucketList, getCityDetailsByPlaceId} from "../../services/wanderer-service";
 import {Link} from "react-router-dom";
 import TopIconsComponent from "../TopIcons";
 import Carousel from 'react-material-ui-carousel';
 import { Paper, Button } from '@mui/material';
 import Fab from '@mui/material/Fab';
+import {loginThunk} from "../../services/wanderer-thunk";
+import * as wandererService from "../../services/wanderer-service";
 
-const HomeComponentProject = () => {
+const HomeComponentProject = ({
+                                  citySuggest = {
+                                      _id: 123,
+                                      placeID: "ChIJOwg_06VPwokRYv534QaPC8g"
+                                  },
+                              }) => {
+    const citiesSuggestions = useSelector((state) => state.CitySuggestions);
     const [address, setAddress] = useState("");
     const [heartToggle, setToggle] = useState(true);
     const [photos, setPhotos] = useState(null);
+    const [url, setUrl] = useState("");
     const [index, setIndex] = useState(2);
     const [searchText, setSearchText] = useState("");
     const [placeId, setPlaceId] = useState("");
     const [user_id, setUserId] = React.useState("");
     const [city_id, setCityId] = React.useState("");
+    const [cityDetails, setCityDetails] = React.useState(null);
 
     const [coordinates, setCoordinates] = useState({
                                                        lat: null,
@@ -37,7 +47,12 @@ const HomeComponentProject = () => {
                 const response = await axios.get(
                     `http://localhost:4000/api/tuits/getPhotos/${placeId}`
                 );
-                setPhotos(response.data);
+                const cityDetails = await wandererService.getCityDetailsByPlaceId(placeId);
+                console.log(response.data);
+                console.log(cityDetails);
+                setPhotos(response.data.images);
+                setCityDetails(cityDetails);
+                setUrl(response.data.url);
             } catch (error) {
                 console.error(error);
             }
@@ -46,7 +61,6 @@ const HomeComponentProject = () => {
             fetchData();
         }
     }, [placeId]);
-
 
 
     // Function to handle place selection
@@ -58,6 +72,7 @@ const HomeComponentProject = () => {
         setPlaceId(results[0].place_id);
         setSearchText(value);
         setAddress("");
+        console.log(citySuggest.placeID);
     };
 
     const { currentUser } = useSelector((state) => state.user);
@@ -76,6 +91,13 @@ const HomeComponentProject = () => {
         const responsed = await addBucketList({cityId,user_id});
         console.log("city",responsed);
     };
+
+    const dispatch = useDispatch();
+    async function handleCurrentState(placeId, cityName) {
+        console.log(placeId);
+        setPlaceId(placeId);
+        setSearchText(cityName);
+    }
 
     return (
         <>
@@ -158,9 +180,52 @@ const HomeComponentProject = () => {
             }
 
             {/*<UserReaction coordinates={coordinates} />*/}
-
-
-            <CitySuggest />
+            { placeId && cityDetails ? (
+                <div>
+                    <h2>About {searchText}</h2>
+                    <p>{cityDetails.place_description}</p>
+                    <h4 style={{"margin-top":"2px"}}>Places to See</h4>
+                    {cityDetails.places_to_see.size !==0 ? <ul className="list-group">
+                        { cityDetails.places_to_see.map(i => (<li className="list-group-item list-group-item-primary" style={{"width": "50%"}}>{i}</li>))}
+                    </ul> : ""}
+                    <h4 style={{"margin-top":"2px"}}>Places to Eat</h4>
+                    {cityDetails.places_to_eat.size !==0 ? <ul className="list-group">
+                        { cityDetails.places_to_eat.map(i => (<li className="list-group-item list-group-item-success" style={{"width": "50%"}}>{i}</li>))}
+                    </ul> : ""}
+                    <h4 style={{"margin-top":"2px"}}>Best Time To Visit</h4>
+                    {cityDetails.best_time_to_visit.size !==0 ? <ul className="list-group">
+                        { cityDetails.best_time_to_visit.map(i => (<li className="list-group-item list-group-item-info" style={{"width": "50%"}}>{i}</li>))}
+                    </ul> : ""}
+                </div>
+            ) : ""
+            }
+            <div className="table-responsive">
+                <table className="table">
+                    <tbody>
+                    <tr>
+                        <div className="image-container">
+                            {citiesSuggestions.map((city) => (
+                                <div className="div-realtive">
+                                    {/*<Link*/}
+                                    {/*    to={"/tuiter/experiencedetail/" + citySuggest._id}*/}
+                                    {/*    style={{ textDecoration: "none" }}*/}
+                                    {/*>*/}
+                                    <img style={{"cursor":"pointer"}}
+                                        height={250}
+                                        width={250}
+                                        alt={"avatarIcon"}
+                                        src={`${city.imageURL}`}
+                                         onClick={ () => handleCurrentState(city.placeID, city.cityName) }
+                                    />
+                                    {/*</Link>*/}
+                                    <h1 className="text-position">{city.cityName}</h1>
+                                </div>
+                            ))}
+                        </div>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
         </>
     );
 };
