@@ -9,13 +9,15 @@ import PlacesAutocomplete, {
 import axios from "axios";
 import {useDispatch, useSelector} from "react-redux";
 import {addBucketList, getCityDetailsByPlaceId} from "../../services/wanderer-service";
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import TopIconsComponent from "../TopIcons";
 import Carousel from 'react-material-ui-carousel';
 import { Paper, Button } from '@mui/material';
 import Fab from '@mui/material/Fab';
 import {loginThunk} from "../../services/wanderer-thunk";
 import * as wandererService from "../../services/wanderer-service";
+import SearchComponentProject from "./SearchResult";
+
 
 const HomeComponentProject = ({
                                   citySuggest = {
@@ -23,6 +25,7 @@ const HomeComponentProject = ({
                                       placeID: "ChIJOwg_06VPwokRYv534QaPC8g"
                                   },
                               }) => {
+    const {searchQuery,searchResults} = JSON.parse(window.sessionStorage.getItem("searchDetails") ? window.sessionStorage.getItem("searchDetails") : "{searchQuery:'',searchResults:''}");
     const citiesSuggestions = useSelector((state) => state.CitySuggestions);
     const [address, setAddress] = useState("");
     const [heartToggle, setToggle] = useState(true);
@@ -30,7 +33,7 @@ const HomeComponentProject = ({
     const [url, setUrl] = useState("");
     const [index, setIndex] = useState(2);
     const [searchText, setSearchText] = useState("");
-    const [placeId, setPlaceId] = useState("");
+    const [placeId, setPlaceId] = useState(searchQuery ? searchQuery:"");
     const [user_id, setUserId] = React.useState("");
     const [city_id, setCityId] = React.useState("");
     const [cityDetails, setCityDetails] = React.useState(null);
@@ -39,9 +42,10 @@ const HomeComponentProject = ({
                                                        lat: null,
                                                        lng: null,
                                                    });
-
+    const navigate = useNavigate();
     // Use useEffect to make API request when placeId changes
     useEffect(() => {
+        console.log(localStorage.getItem('placeId'));
         async function fetchData() {
             try {
                 const response = await axios.get(
@@ -73,6 +77,10 @@ const HomeComponentProject = ({
         setSearchText(value);
         setAddress("");
         console.log(citySuggest.placeID);
+        localStorage.setItem('placeId', placeId);
+        console.log(localStorage.getItem('placeId'));
+        window.sessionStorage.setItem("searchDetails",JSON.stringify({searchQuery:placeId,searchDetails:""}))
+
     };
 
     const { currentUser } = useSelector((state) => state.user);
@@ -98,6 +106,11 @@ const HomeComponentProject = ({
         setPlaceId(placeId);
         setSearchText(cityName);
     }
+    // function redirectToDetailsPage() {
+    //     navigate(`/cityDetails/${placeId}`);
+    //     return <SearchComponentProject place_id={placeId}/>
+    //
+    // }
 
     return (
         <>
@@ -150,8 +163,13 @@ const HomeComponentProject = ({
                     <React.Fragment />
                 ) : (
                     <div className="row">
-                        <div className="col-10">
+                        <div className="col-8">
                             <h3 style={{paddingTop: "10px"}}>{searchText}</h3>
+                        </div>
+                        <div className="col-2">
+                            <Link to={`/cityDetails/${placeId}`} state={{ place_id: placeId, search_text: searchText }}>
+                                More Details
+                            </Link>
                         </div>
                         <div className="col-2">
                             <Fab aria-label="add" style={{float: "right"}} onClick={() => setToggle(!heartToggle)}>
@@ -180,25 +198,25 @@ const HomeComponentProject = ({
             }
 
             {/*<UserReaction coordinates={coordinates} />*/}
-            { placeId && cityDetails ? (
-                <div>
-                    <h2>About {searchText}</h2>
-                    <p>{cityDetails.place_description}</p>
-                    <h4 style={{"margin-top":"2px"}}>Places to See</h4>
-                    {cityDetails.places_to_see.size !==0 ? <ul className="list-group">
-                        { cityDetails.places_to_see.map(i => (<li className="list-group-item list-group-item-primary" style={{"width": "50%"}}>{i}</li>))}
-                    </ul> : ""}
-                    <h4 style={{"margin-top":"2px"}}>Places to Eat</h4>
-                    {cityDetails.places_to_eat.size !==0 ? <ul className="list-group">
-                        { cityDetails.places_to_eat.map(i => (<li className="list-group-item list-group-item-success" style={{"width": "50%"}}>{i}</li>))}
-                    </ul> : ""}
-                    <h4 style={{"margin-top":"2px"}}>Best Time To Visit</h4>
-                    {cityDetails.best_time_to_visit.size !==0 ? <ul className="list-group">
-                        { cityDetails.best_time_to_visit.map(i => (<li className="list-group-item list-group-item-info" style={{"width": "50%"}}>{i}</li>))}
-                    </ul> : ""}
-                </div>
-            ) : ""
-            }
+            {/*{ placeId && cityDetails ? (*/}
+            {/*    <div>*/}
+            {/*        <h2>About {searchText}</h2>*/}
+            {/*        <p>{cityDetails.place_description}</p>*/}
+            {/*        <h4 style={{"margin-top":"2px"}}>Places to See</h4>*/}
+            {/*        {cityDetails.places_to_see.size !==0 ? <ul className="list-group">*/}
+            {/*            { cityDetails.places_to_see.map(i => (<li className="list-group-item list-group-item-primary" style={{"width": "50%"}}>{i}</li>))}*/}
+            {/*        </ul> : ""}*/}
+            {/*        <h4 style={{"margin-top":"2px"}}>Places to Eat</h4>*/}
+            {/*        {cityDetails.places_to_eat.size !==0 ? <ul className="list-group">*/}
+            {/*            { cityDetails.places_to_eat.map(i => (<li className="list-group-item list-group-item-success" style={{"width": "50%"}}>{i}</li>))}*/}
+            {/*        </ul> : ""}*/}
+            {/*        <h4 style={{"margin-top":"2px"}}>Best Time To Visit</h4>*/}
+            {/*        {cityDetails.best_time_to_visit.size !==0 ? <ul className="list-group">*/}
+            {/*            { cityDetails.best_time_to_visit.map(i => (<li className="list-group-item list-group-item-info" style={{"width": "50%"}}>{i}</li>))}*/}
+            {/*        </ul> : ""}*/}
+            {/*    </div>*/}
+            {/*) : ""*/}
+            {/*}*/}
             <div className="table-responsive">
                 <table className="table">
                     <tbody>

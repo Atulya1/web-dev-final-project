@@ -46,7 +46,8 @@ export const registerUserExperience = async (data) => {
         password: data.password,
         email: data.email,
         dob: data.dob,
-        phone_number: data.phone_number
+        phone_number: data.phone_number,
+        role: data.role
     }
     return await axios.post(`${TUITS_API}/addUser`, updatedData);
 }
@@ -175,6 +176,34 @@ export const getExperiencesByUserId = async (userId) => {
     const data =  { userId: userId};
     const response = await axios
         .post(`${TUITS_API}/getUserExperiencebyUserId`, data);
+    console.log(response);
+    return response.data;
+}
+
+export const getAllUsers = async () => {
+    const response = await axios
+        .get(`${TUITS_API}/getUser`);
+    console.log(response);
+    return response.data;
+}
+export const getUser = async (id) => {
+    const response = await axios
+        .get(`${TUITS_API}/getUser/${id}`);
+    console.log(response);
+    return response.data;
+}
+export const editUserRole = async (data,id) => {
+    console.log(data);
+    console.log(id);
+    const response = await axios
+        .put(`${TUITS_API}/updateUser/${id}`, data);
+    console.log(response);
+    return response.data;
+}
+export const deleteUser = async (id) => {
+    console.log(id);
+    const response = await axios
+        .delete(`${TUITS_API}/deleteUser/${id}`);
     console.log(response);
     return response.data;
 }

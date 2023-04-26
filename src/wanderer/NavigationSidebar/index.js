@@ -15,7 +15,9 @@ const NavigationSidebar = () => {
     return(
         <React.Fragment>
         <div style={{paddingLeft:20,paddingTop:23,position:"fixed"}}>
-            <h3 style={{color:"hotpink",fontStyle:"italic"}} >Wanderer</h3>
+            {/*<h3 style={{color:"hotpink",fontStyle:"italic"}} >Wanderer</h3>*/}
+            <img src="https://images.vexels.com/media/users/3/273668/isolated/preview/b64d5d9eb3e862f3fcb8ac1e94df5a66-wander-cursive-word.png" alt="icon" style={{"width": "200px",
+                "height": "125px"}}/>
         {/*</div>*/}
         {/*<div className="list-group" style={{ height:30,paddingTop:20,position:"fixed"}}>*/}
             <Link to="/" className={`list-group-item ${active === 'home' || active === "" ?'active':''} border-0` } style={{padding:'30px 0',backgroundColor:"transparent",fontWeight:"bold"}} >
@@ -30,6 +32,7 @@ const NavigationSidebar = () => {
             <Link to="/wanderer/reviews" className={`list-group-item ${active === 'bookmarks'?'active':''} border-0`} style={{padding:'30px 0',backgroundColor:"transparent",fontWeight:"bold"}}><i className="fa-regular fa-pen-to-square"></i> Write an Experience</Link>
             <Link to="/wanderer/bookings" className={`list-group-item ${active === 'bookmarks'?'active':''}border-0`} style={{padding:'30px 0',backgroundColor:"transparent",fontWeight:"bold"}}><i className="fas fa-bookmark"></i>&nbsp; My Bookings</Link>
             <Link to="/wanderer/upcomingTrips" className={`list-group-item ${active === 'lists'?'active':''} border-0`} style={{padding:'30px 0',backgroundColor:"transparent",fontWeight:"bold"}}><i className="fas fa-list-ul"></i>&nbsp; Upcoming trips</Link>
+            <Link to="/wanderer/editUserDetails" className={`list-group-item ${active === 'lists'?'active':''} border-0`} style={{padding:'30px 0',backgroundColor:"transparent",fontWeight:"bold"}}><i className="fas fa-list-ul"></i>&nbsp; Edit User Details</Link>
             {
                 currentUser ? (
                     <Link to="/wanderer/profile" className={`list-group-item ${active === 'lists'?'active':''} border-0`} style={{padding:'30px 0',backgroundColor:"transparent",fontWeight:"bold"}}><i className="fas fa-user"></i> &nbsp;My Profile</Link>

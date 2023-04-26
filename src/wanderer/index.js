@@ -29,6 +29,9 @@ import MyBookings from "./MyBookings";
 import MyBucketList from "./MyBucketList";
 import NavBaratTop from "./NavBarTop";
 import TopIconsComponent from "./TopIcons";
+import SearchComponentProject from "./HomeComponent/SearchResult";
+import AllUsers from "./AdminAccess/AllUsers";
+import EditUser from "./AdminAccess/EditUsers";
 
 const store = configureStore({
                                  reducer: {profile: profileReducer, experience: experienceReducer, experiencedetail: experienceDetail,
@@ -70,6 +73,10 @@ function Wanderer() {
                         <Route path="/wanderer/upcomingTrips" element={<UpcomingTripsComponent/>}/>
                         <Route path="/wanderer/bookings" element={<MyBookings/>}/>
                         <Route path="/wanderer/bucketList" element={<MyBucketList/>}/>
+                        <Route path="/cityDetails/:placeID" element={<SearchComponentProject/>}/>
+                        <Route path="/wanderer/editUserDetails" element={<AllUsers/>}/>
+                        <Route path="/wanderer/editUserDetails/edit/:id" element={<EditUser />} />
+
                     </Routes>
                 </div>
                 {/*<div className="col-3" style={{"height": "780px",*/}
