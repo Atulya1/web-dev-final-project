@@ -38,8 +38,13 @@ const LoginComponent = () => {
     const dispatch = useDispatch();
     const handleLogin = async () => {
         try {
-            await dispatch(loginThunk(user));
-            navigate("/wanderer/profile/my");
+            let res = await dispatch( loginThunk(user));
+            if(res.type == "user/login/fulfilled") {
+                navigate("/wanderer/profile/my");
+            } else {
+                alert(res.error.message);
+            }
+
         } catch (e) {
             alert(e);
         }

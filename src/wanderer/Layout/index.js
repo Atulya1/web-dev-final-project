@@ -29,7 +29,6 @@ const LayoutComponent = () => {
                     <Route path="/explore/:id" element={<GlobalCities/>}/>
                     <Route path="/wanderer/profile/:userId" element={<ProfileComponent/>}/>
                     <Route path="/profile/:id" element={<ProfileComponent/>}/>
-                    <Route path="/profile" element={<ProfileComponent/>}/>
                     <Route path="/wanderer/edit-profile" element={<EditProfileComponent/>}/>
                     <Route path="/experiencedetail/:id" element={<DetailExp/>}/>
                     <Route path="/cities" element={<CitySuggest/>}/>

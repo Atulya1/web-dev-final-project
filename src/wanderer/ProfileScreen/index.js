@@ -3,12 +3,14 @@ import {useSelector} from "react-redux";
 import {Link, useNavigate} from "react-router-dom";
 import {useParams} from "react-router";
 import {addBooking, getUserByUserId} from "../../services/wanderer-service";
+import TopIconsComponent from "../TopIcons";
+import BottomIconsComponent from "../BottomIcons";
 
 
 const ProfileComponent = () => {
 
     const profileData = useSelector(state => state.user);
-    const [toggle, setToggle] = useState(true);
+    const [toggle, setToggle] = useState(false);
         const [profile, setProfileData] = useState("");
     let nav = useNavigate();
     let profiled;
@@ -29,9 +31,11 @@ const ProfileComponent = () => {
             console.log("parameters", params.userId);
             let loginUser = params.userId;
             if(params.userId == "my") {
-                loginUser = localStorage.getItem("user")._id;
+                // loginUser = JSON.parse(localStorage.getItem("user"))._id;
+                loginUser = profileData.currentUser._id;
             }
             try {
+                console.log("iosadjoasij", loginUser);
                 const response = await getUserByUserId(loginUser);
                 console.log("user details", response);
                 setProfileData(response);
@@ -43,13 +47,14 @@ const ProfileComponent = () => {
         useEffect(() => {
             console.log("yes", profiled);
             fetchUserDataByUserId();
-            if (profiled && profiled._id === params.userId) {
+            if (profiled && (profiled._id === params.userId || params.userId == "my")) {
                 console.log("yes", profiled);
-                setToggle(!toggle);
+                setToggle(true);
             }
         }, [params.userId]);
 
         return (
+            <div>
             <div  style={{paddingRight:170}}>
                 <div>
                     <div className="position-relative">
@@ -59,9 +64,9 @@ const ProfileComponent = () => {
                              className="h-50 rounded-circle card-img-overlay mx-3 top-50"
                              style={{left: '35%', marginTop: '6.5rem'}}></img>
                     </div>
-                    { !toggle && (
+                    { toggle && (
                         <div className="position-relative" style={{paddingTop: 10, left: '88%'}}>
-                            <button className="rounded-pill btn btn-outline-secondary"
+                            <button className="rounded-pill btn btn-dark"
                                     onClick={() => nav('/wanderer/edit-profile')}>
                                 Edit profile
                             </button>
@@ -72,6 +77,11 @@ const ProfileComponent = () => {
                     </div>
                 </div>
 
+                <br/>
+                <div>
+                    <BottomIconsComponent/>
+                </div>
+                <br/>
                 <br/>
                 <div className="row" style={{paddingLeft: 80}}>
                     <div>
@@ -91,7 +101,7 @@ const ProfileComponent = () => {
                     </div>
                 </div>
                 <br/>
-                { !toggle && (
+                { toggle && (
                     <div>
                     <div className="row" style={{paddingLeft: 80}}>
                         <div>
@@ -108,7 +118,12 @@ const ProfileComponent = () => {
                 )
                 }
                 <br/>
+                {/*<br/>*/}
+
+                <br/>
             </div>
+            <br/>
+    </div>
         );
     }
 

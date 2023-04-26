@@ -294,6 +294,7 @@ import * as wandererService from "../../services/wanderer-service";
 import {Route, Routes} from "react-router";
 import HomeExp from "../Experiences";
 import HomeExperience from "../Experiences/home-experience";
+import { useSearchParams } from "react-router-dom";
 
 const HomeComponentProject = ({
                                   citySuggest = {
@@ -318,6 +319,8 @@ const HomeComponentProject = ({
                                                        lat: null,
                                                        lng: null,
                                                    });
+
+    let [searchParams, setSearchParams] = useSearchParams();
 
     // Use useEffect to make API request when placeId changes
     useEffect(() => {
@@ -351,8 +354,15 @@ const HomeComponentProject = ({
     }, [placeId]);
 
 
+    useEffect(() => {
+        if(searchParams.has("searchText")) {
+            handleSelect(searchParams.get("searchText"));
+        }
+    }, []);
+
     // Function to handle place selection
     const handleSelect = async (value) => {
+        console.log(value);
         const results = await geocodeByAddress(value);
         const latLng = await getLatLng(results[0]);
         setAddress(value);
@@ -360,6 +370,7 @@ const HomeComponentProject = ({
         setPlaceId(results[0].place_id);
         setSearchText(value);
         setAddress("");
+        setSearchParams({searchText: value})
         console.log(citySuggest.placeID);
     };
 
@@ -369,10 +380,10 @@ const HomeComponentProject = ({
         console.log("place ID",placeId);
         const response = await getCityDetailsByPlaceId(placeId);
         console.log("responsess",response);
-        console.log("city id",response.data._id);
+        console.log("city id",response.data.message._id);
         console.log("current user",currentUser);
-        const city_id =  response.data._id
-        setCityId(response.data._id);
+        const city_id =  response.data.message._id
+        setCityId(response.data.message._id);
         if(currentUser) {
             setUserId(currentUser._id);
             console.log(currentUser._id);

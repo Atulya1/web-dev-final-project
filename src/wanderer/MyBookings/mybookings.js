@@ -12,7 +12,7 @@ const MyBookingsComponent = (mybooking) => {
           <h2>{bookingDets.city_name}</h2>
         </div>
           <div className="col-3">
-              <button type="button" className="btn btn-outline-dark px-4 float-end"
+              <button type="button" className="btn btn-primary px-4 float-end"
               >Booked
               </button>
           </div>

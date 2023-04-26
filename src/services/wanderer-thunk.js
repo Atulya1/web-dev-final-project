@@ -5,7 +5,13 @@ export const loginThunk = createAsyncThunk(
     "user/login",
     async (credentials) => {
         const user = await wandererService.loginUser(credentials);
-        return user;
+        console.log("jdfhdfjh", user);
+        if(user.status == 404) {
+            throw new Error("Incorrect Password")
+        } else {
+            return user;
+        }
+
     }
 );
 
