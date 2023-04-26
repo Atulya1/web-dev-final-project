@@ -27,6 +27,7 @@ const ProfileComponent = () => {
         } else {
             navigate("/");
         }
+
     }, [params.id]);
 
     return(

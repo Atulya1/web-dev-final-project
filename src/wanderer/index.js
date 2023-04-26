@@ -3,7 +3,7 @@ import NavigationSidebar from "./NavigationSidebar";
 import {Routes, Route} from "react-router";
 import React from "react";
 import experienceReducer from "./Experiences/experience-reducer";
-import experienceDetail from "./Experience-Detail/experience_detail_reducer";
+// import experienceDetail from "./Experience-Detail/experience_detail_reducer";
 import HomeProjectReducer from "./HomeComponent/HomeProject-reducer";
 import CitySuggestionReducer from "./CitySuggestions/city_suggestion_reducer";
 import { configureStore }
@@ -30,7 +30,7 @@ import MyBucketList from "./MyBucketList";
 import LayoutComponent from "./Layout";
 
 const store = configureStore({
-                                 reducer: {profile: profileReducer, experience: experienceReducer, experiencedetail: experienceDetail,
+                                 reducer: {profile: profileReducer, experience: experienceReducer,
                                      Cities: HomeProjectReducer, CitySuggestions: CitySuggestionReducer,user: userDetailsReducer}
                              });
 

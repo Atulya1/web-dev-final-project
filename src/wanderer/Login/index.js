@@ -3,6 +3,7 @@ import "./login.css";
 import {useNavigate} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import { loginThunk } from "../../services/wanderer-thunk";
+import {findMyBookings} from "../../services/wanderer-service";
 
 const initialValue = {
     username: '',
@@ -32,20 +33,29 @@ const LoginComponent = () => {
         // }
 
 
-
+    const [ userId, setUserId ] = useState("");
+    const { currentUser } = useSelector((state) => state.user);
     const dispatch = useDispatch();
     const handleLogin = async () => {
         try {
             await dispatch(loginThunk(user));
-            navigate("/wanderer/profile");
+            navigate("/wanderer/profile/my");
         } catch (e) {
             alert(e);
         }
     };
 
-        const handleRegister = () => {
-            navigate('/register');
-        };
+    useEffect(() => {
+        console.log("user",currentUser);
+        if (currentUser) {
+            setUserId(currentUser?._id);
+        }
+
+    }, []);
+
+    const handleRegister = () => {
+        navigate('/register');
+    };
 
     return(
             <div className="container">

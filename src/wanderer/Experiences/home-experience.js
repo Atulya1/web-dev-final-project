@@ -1,15 +1,15 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import Box from '@mui/material/Box';
 import Rating from '@mui/material/Rating';
 import Typography from '@mui/material/Typography';
 import {Link} from "react-router-dom";
+import {getUserByUserId} from "../../services/wanderer-service";
 const HomeExperience = (
     {
         homeExperience = {
-            _id: 123,
-            profileID: 234,
-            name: "Chetana",
+            _id:"643c6508e704172c5828bbaa",
+            user_id:"643b3c1f6681be7f6f49eba8",
             travel_place: "Dallas",
             userAvtar: "chetana.png",
             travel_date: "3/08/2023",
@@ -30,39 +30,55 @@ const HomeExperience = (
 
     }
 ) => {
-    const [reviewstring, setreviewstring] = useState(homeExperience.experience.description);
+    const [username, setUserName] = React.useState("");
+    useEffect(() => {
+        async function fetchUserNameByUserId() {
+
+            try {
+                const response = await getUserByUserId(homeExperience.user_id);
+                console.log("username",response.username);
+                setUserName(response.username);
+
+            } catch (error) {
+                console.error(error);
+            }
+        }
+        fetchUserNameByUserId();
+    }, [homeExperience.user_id]);
+
+    const [reviewstring, setReviewString] = useState(homeExperience.experience.description);
 
     return(
         <li className="list-group-item">
             <div className="row">
-                <div className="col-2">
-                    <img className="rounded-circle" height={44} width={48} alt={"avatarIcon"} src={`../Images/${homeExperience.userAvtar}`}/>
+                <div className="col-3">
+                    <img className="rounded-circle" height={44} width={48} alt={"A"} src={`../../Images/samantha.jpeg`}/>
                 </div>
-                <div className="col-10">
-                    <Link to={"/profile/" + homeExperience.profileID} style={{textDecoration:'none'}}><div className="fw-bold" style={{color:"black"}}>{homeExperience.name} </div></Link>
-                    <Box
-                        sx={{
-                            '& > legend': { mt: 2 },
-                        }}
-                    >
-                        <Rating name="read-only" value={homeExperience.experience.rating} readOnly />
-
-                    </Box>
+                <div className="col-9">
+                    <Link to={"/wanderer/profile/"+homeExperience.user_id} style={{textDecoration:'none'}}><div className="fw-bold" style={{color:"black"}}>{username}</div></Link>
                     <div>
-                        <Link to={"/explore/"+homeExperience.travel_place} style={{textDecoration:'none'}}><text className="Heading text-black fw-bold">{homeExperience.travel_place}</text></Link>
+                        <Link to={`/experiencedetail/${homeExperience._id}`} state= {{experience_id: homeExperience._id}} style={{textDecoration:'none'}}><text className="Heading text-black fw-bold">{homeExperience.experience.heading}</text></Link>
                         <br/>
+                        <Box
+                            sx={{
+                                '& > legend': { mt: 2 },
+                            }}
+                        >
+                            <Rating name="read-only" value={homeExperience.experience.rating} readOnly />
+
+                        </Box>
                         <text className="Heading text-black">{homeExperience.travel_date}</text>
                     </div>
                     <div>
-                       <Link to={"/experiencedetail/"+homeExperience._id} style={{textDecoration:'none'}}><text className="Heading text-black fw-bold">{homeExperience.experience.heading}</text></Link>
+                        <Link to={"/explore/"+homeExperience.travel_place} style={{textDecoration:'none'}}><text className="Heading text-black fw-bold">{homeExperience.travel_place}</text></Link>
                         <br/>
+                    </div>
+                    <div>
                         <text className="Heading text-black" style={{"text-overflow": "ellipsis",
                             "white-space": "nowrap",
                             "display": "block",
-                            "overflow": "hidden",
-                            "width": "15em"}}>{reviewstring}</text>
+                            "overflow": "hidden"}}>{reviewstring}</text>
                     </div>
-
                 </div>
             </div>
         </li>

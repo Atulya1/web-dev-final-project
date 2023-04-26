@@ -5,6 +5,7 @@ import { useSelector } from "react-redux";
 
 const MyBucketListComponent = (bucketlist) => {
     const bookingDets = bucketlist.mybooking;
+    console.log("Aaaaa", bookingDets);
     return (
         <div className="container">
             <div className="row">
@@ -12,7 +13,7 @@ const MyBucketListComponent = (bucketlist) => {
                     <h6 style={{fontWeight:"bold"}}>Best Time to Visit</h6>
                 </div>
                 <div className="col-3">
-                    <h6>{bookingDets.best_time_to_visit}</h6>
+                    {/*<h6>{bookingDets.best_time_to_visit}</h6>*/}
                 </div>
             </div>
             <div className="row">
@@ -20,7 +21,7 @@ const MyBucketListComponent = (bucketlist) => {
                     <h6 style={{fontWeight:"bold"}}>City Name</h6>
                 </div>
                 <div className="col-3">
-                    <h6>{bookingDets.city_name.city}</h6>
+                    <h6>{bookingDets.city_name?.city}</h6>
                 </div>
             </div>
             <div className="row">
@@ -28,7 +29,7 @@ const MyBucketListComponent = (bucketlist) => {
                     <h6 style={{fontWeight:"bold"}}>Country Name</h6>
                 </div>
                 <div className="col-3">
-                    <h6>{bookingDets.city_name.country}</h6>
+                    <h6>{bookingDets.city_name?.country}</h6>
                 </div>
             </div>
             <div className="row">

@@ -26,7 +26,7 @@ const EditProfileComponent = () => {
                                             userId: profileData.currentUser._id,
                                             data: userDetails
                                         }));
-        nav(`/wanderer/profile`);
+        nav(`/wanderer/profile/${profile._id}`);
     }
 
     const firstNameChangeHandler = (event) => {
@@ -101,7 +101,7 @@ const EditProfileComponent = () => {
     }, []);
 
     return(
-        <div className="border rounded px-0 py-3">
+        <div style={{paddingRight:170}}>
             <div>
                 <div className="position-relative">
                     <img src="../../Images/bannerimage.jpeg" alt="banner" className="w-100 px-0 mx-0 border-0" style={{height:450}}></img>
@@ -139,7 +139,7 @@ const EditProfileComponent = () => {
                         id="outlined-read-only-input"
                         name='firstName'
                         label="First Name"
-                        style ={{width:300}}
+                        style ={{width:250}}
                         defaultValue={profile.name.firstName}
                     />
                 </div>
@@ -150,7 +150,7 @@ const EditProfileComponent = () => {
                         value={lastName}
                         name='lastName'
                         label="Last Name"
-                        style ={{width:300}}
+                        style ={{width:250}}
                         defaultValue={profile.name.lastName}
                     />
                 </div>

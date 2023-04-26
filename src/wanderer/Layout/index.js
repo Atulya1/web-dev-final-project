@@ -21,14 +21,15 @@ const LayoutComponent = () => {
             <div className="col-2">
                 <NavigationSidebar active="explore" />
             </div>
-            <div className="col-8"
+            <div className="col-10"
                  style={{"position": "relative"}}>
                 <br/>
                 <Routes>
                     <Route path="/" element={<HomeComponentProject/>}/>
                     <Route path="/explore/:id" element={<GlobalCities/>}/>
-                    <Route path="/wanderer/profile" element={<ProfileComponent/>}/>
+                    <Route path="/wanderer/profile/:userId" element={<ProfileComponent/>}/>
                     <Route path="/profile/:id" element={<ProfileComponent/>}/>
+                    <Route path="/profile" element={<ProfileComponent/>}/>
                     <Route path="/wanderer/edit-profile" element={<EditProfileComponent/>}/>
                     <Route path="/experiencedetail/:id" element={<DetailExp/>}/>
                     <Route path="/cities" element={<CitySuggest/>}/>

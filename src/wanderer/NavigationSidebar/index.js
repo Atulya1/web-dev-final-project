@@ -32,12 +32,13 @@ const NavigationSidebar = () => {
             <Link to="/wanderer/upcomingTrips" className={`list-group-item ${active === 'lists'?'active':''} border-0`} style={{padding:'30px 0',backgroundColor:"transparent",fontWeight:"bold"}}><i className="fas fa-list-ul"></i>&nbsp; Upcoming trips</Link>
             {
                 currentUser ? (
-                    <Link to="/wanderer/profile" className={`list-group-item ${active === 'lists'?'active':''} border-0`} style={{padding:'30px 0',backgroundColor:"transparent",fontWeight:"bold"}}><i className="fas fa-user"></i> &nbsp;{currentUser.username}</Link>
+                    <Link to={`/wanderer/profile/${currentUser._id}`} className={`list-group-item ${active === 'lists'?'active':''} border-0`} style={{padding:'30px 0',backgroundColor:"transparent",fontWeight:"bold"}}><i className="fas fa-user"></i> &nbsp;{currentUser.username}</Link>
+
                 ) : (
                     <React.Fragment />
                 )
             }
-
+            {/*{console.log("please",currentUser)}*/}
             <br/>
 
             {
