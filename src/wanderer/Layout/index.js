@@ -14,14 +14,17 @@ import BookATrip from "../BookATrip";
 import UpcomingTripsComponent from "../AddUpcomingTrip";
 import MyBookings from "../MyBookings";
 import MyBucketList from "../MyBucketList";
+import SearchComponentProject from "../HomeComponent/SearchResult";
+import AllUsers from "../AdminAccess/AllUsers";
+import EditUser from "../AdminAccess/EditUsers";
 
 const LayoutComponent = () => {
     return (
         <React.Fragment>
-            <div className="col-2">
+            <div className="col-xl-2 d-xl-block d-lg-none d-md-none d-sm-none">
                 <NavigationSidebar active="explore" />
             </div>
-            <div className="col-10"
+            <div className="col-xl-10 col-lg-12 col-md-12"
                  style={{"position": "relative"}}>
                 <br/>
                 <Routes>
@@ -39,6 +42,9 @@ const LayoutComponent = () => {
                     <Route path="/wanderer/upcomingTrips" element={<UpcomingTripsComponent/>}/>
                     <Route path="/wanderer/bookings" element={<MyBookings/>}/>
                     <Route path="/wanderer/bucketList" element={<MyBucketList/>}/>
+                    <Route path="/cityDetails/:placeID" element={<SearchComponentProject/>}/>
+                    <Route path="/wanderer/editUserDetails" element={<AllUsers/>}/>
+                    <Route path="/wanderer/editUserDetails/edit/:id" element={<EditUser />} />
                 </Routes>
             </div>
         </React.Fragment>

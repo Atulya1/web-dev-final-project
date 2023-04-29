@@ -33,7 +33,6 @@ const store = configureStore({
                                  reducer: {profile: profileReducer, experience: experienceReducer,
                                      Cities: HomeProjectReducer, CitySuggestions: CitySuggestionReducer,user: userDetailsReducer}
                              });
-
 function Wanderer() {
     return (
         <Provider store={store}>

@@ -12,14 +12,16 @@ const initialValue = {
     lastName: '',
     email: '',
     dob: '',
-    phone_number: ''
+    phone_number: '',
+    role: ''
 }
 
 
 const RegisterComponent = () => {
 
     const [userRegistration, setUserRegistration] = useState(initialValue);
-    const { username, password, firstName, lastName, email, dob, phone_number } = userRegistration;
+    const [message, setMessage] = useState("");
+    const { username, password, firstName, lastName, email, dob, phone_number, role } = userRegistration;
 
     let navigate = useNavigate();
 
@@ -35,17 +37,13 @@ const RegisterComponent = () => {
         if(response.data.status == 200) {
             console.log(response.data.message._id);
             navigate(`/login/`);
+        } else if(response.data.status == 402) {
+            setMessage(response.data.message);
+        } else if(response.data.status == 404) {
+            setMessage(response.data.message);
         } else {
-            window.alert("error occured");
+            setMessage("Error occured");
         }
-        // const responseUser = await checkUserName(userRegistration);
-        // if(responseUser.data.status != 200) {
-        //     console.log(response.data.message._id);
-        //     setMessage('Available.');
-        // }
-        // else {
-        //     setMessage('Sorry, this username is not Available.');
-        // }
 
     }
 
@@ -88,12 +86,41 @@ const RegisterComponent = () => {
                                     <span className="input-group-addon"><i className="fa fa-lock"></i></span>
                                     <input type="date" className="form-control" placeholder="Date of Birth" onChange={(e) => onValueChange(e)} name='dob' value={dob} id="dob"/>
                                 </div>
+                                <div>
+                                    <h6>User Role</h6>
+                                    <div className="row">
+                                        <div className="col-1">
+                                            <input
+                                                type="radio"
+                                                name="role"
+                                                value="admin"
+                                                onChange={(e) => onValueChange(e)}
+                                            /></div>
+                                        <div className="option-box col-11">Admin</div>
+                                    </div>
+                                    <div className="row">
+                                        <div className="col-1">
+                                            <input
+                                                type="radio"
+                                                name="role"
+                                                value="loggedInUser"
+                                                onChange={(e) => onValueChange(e)}
+                                            /></div>
+                                        <div className="option-box col-11">Normal User</div>
+                                    </div>
+                                </div>
                                 <div className="row">
                                     <div className="col-6">
                                         <button type="button" className="btn btn-primary px-4" onClick={() => registerUserDetails()}>Register</button>
 
                                     </div>
                                 </div>
+                                { message ? (
+                                    <div>
+                                        <p style={{"color": "red"}}>**{message}</p>
+                                    </div>
+                                ) : ""
+                                }
                             </div>
                         </div>
                     </div>
